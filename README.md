@@ -7,13 +7,13 @@ Installation Instructions
 -------------------------
 
 1.- download composer.phar from here:
-    **curl -sS https://getcomposer.org/installer | php**
+    ```curl -sS https://getcomposer.org/installer | php```
 
 2.- run:
-    **php composer.phar install**
+    ```php composer.phar install```
 
 3.- run:
-    **Vendor/bin/cake bake project <path to project>/app**
+    ```Vendor/bin/cake bake project <path to project>/app```
 
 4.- edit:
     *app/webroot/index.php*, *app/webroot/test.php*
