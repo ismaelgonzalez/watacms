@@ -4,4 +4,7 @@ tmp/*
 app/tmp/*
 app/[Cc]onfig/core.php
 app/[Cc]onfig/database.php
+app/[Pp]lugin/*
+Vendor/*
 !empty
+composer.phar
