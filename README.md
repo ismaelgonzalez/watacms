@@ -7,18 +7,24 @@ Installation Instructions
 -------------------------
 
 1.- download composer.phar from here:
-	**curl -sS https://getcomposer.org/installer | php**
+    **curl -sS https://getcomposer.org/installer | php**
+
 2.- run:
-	**php composer.phar install**
+    **php composer.phar install**
+
 3.- run:
-	**Vendor/bin/cake bake project <path to project>/app**
+    **Vendor/bin/cake bake project <path to project>/app**
+
 4.- edit:
-	*app/webroot/index.php*
-	*app/webroot/test.php*
-	set this:
-		**define( 'CAKE_CORE_INCLUDE_PATH', ROOT . DS . '/Vendor/cakephp/cakephp/lib' );**
+    *app/webroot/index.php*, *app/webroot/test.php*
+
+5.- in those files set this: 
+```php
+define( 'CAKE_CORE_INCLUDE_PATH', ROOT . DS . '/Vendor/cakephp/cakephp/lib' );
+```
+
 5.- edit:
-	*Config/bootstrap.php*
+    *app/Config/bootstrap.php*
 ```php
 // Load Composer autoload.
 require ROOT . DS . 'Vendor/autoload.php';
