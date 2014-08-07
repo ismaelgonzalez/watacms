@@ -30,3 +30,4 @@ CREATE TABLE authors (
 );
 
 ALTER TABLE authors ADD CONSTRAINT authors_fk1 FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE users ADD status TINYINT default 1;
