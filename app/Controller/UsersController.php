@@ -54,6 +54,7 @@ class UsersController extends AppController
 
 	public function index(){
 		//nothing
+		return $this->redirect("/");
 	}
 
 	public function admin_index(){
@@ -80,6 +81,8 @@ class UsersController extends AppController
 		$this->set('sectionTitle', 'Agregar Usuarios');
 
 		if (!empty($this->data)) {
+			//debug($this->data);
+			//exit();
 			$this->User->create();
 			if (empty($this->data['User']['image']['name'])) {
 				unset($this->request->data['User']['image']);
@@ -87,7 +90,7 @@ class UsersController extends AppController
 			//since we're adding this user from admin, automatically set signin_complete=1
 			$this->request->data['User']['signin_complete'] = 1;
 
-			if (!$this->User->save($this->data)) {
+			if (!$this->User->saveAssociated($this->data)) {
 				$this->Session->setFlash('No se pudo guardar al Usuario  :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
@@ -95,7 +98,7 @@ class UsersController extends AppController
 
 			$this->Session->setFlash('Se agreg&oacute; al nuevo Usuario!', 'default', array('class'=>'alert alert-success'));
 
-			return $this->redirect('/users/index');
+			return $this->redirect('/admin/users/index');
 		}
 	}
 

@@ -1,5 +1,6 @@
 <?php
 //App::uses('AuthComponen', 'Controller/Component');
+App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class User extends AppModel {
 	public $name = 'User';
@@ -32,6 +33,10 @@ class User extends AppModel {
 				'rule' => 'notEmpty',
 				'message' => 'El Rol es requerido',
 			),
+			'allowedChoice' => array(
+				'rule'    => array('inList', array('admin', 'editor')),
+				'message' => 'El Valor de Rol tiene que ser Admin o Editor.'
+			)
 		),
 	);
 

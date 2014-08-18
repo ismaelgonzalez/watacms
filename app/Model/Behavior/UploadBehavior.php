@@ -27,6 +27,10 @@ class UploadBehavior extends ModelBehavior {
 			}
 
 			if ($typeOK) {  //upload
+
+				//check dimensions
+				//if wider than 600px
+				
 				if(!move_uploaded_file($pics['image']['tmp_name'], $pics_dir.DS.$filename)) {
 					return false;
 				}
