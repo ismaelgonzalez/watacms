@@ -38,7 +38,7 @@ class UsersController extends AppController
 		return true;
 	}
 */
-	public $helpers = array('Paginator', 'Js');
+	public $helpers = array('Paginator', 'Js', 'Thumbs');
 
 	//public $layout = "admin";
 
@@ -111,19 +111,19 @@ class UsersController extends AppController
 		if (empty($user)) {
 			$this->Session->setFlash('No existe Usuario con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
-			return $this->redirect('/users/index');
+			return $this->redirect('/admin/users/index');
 		}
 
 		$this->set('user', $user);
 
 		if (!empty($this->data)) {
-			if (empty($this->data['User']['image']['name'])) {
-				unset($this->request->data['User']['image']);
+			if (empty($this->data['Author']['pic']['name'])) {
+				unset($this->request->data['Author']['pic']);
 			}
-			if (empty($this->data['User']['passwd'])) {
-				unset($this->request->data['User']['passwd']);
+			if (empty($this->data['User']['password'])) {
+				unset($this->request->data['User']['password']);
 			}
-			if (!$this->User->save($this->data)) {
+			if (!$this->User->saveAssociated($this->data)) {
 				$this->Session->setFlash('No se pudo guardar al Usuario  :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
@@ -131,7 +131,7 @@ class UsersController extends AppController
 
 			$this->Session->setFlash('Se editó al Usuario!', 'default', array('class'=>'alert alert-success'));
 
-			return $this->redirect('/users/index');
+			return $this->redirect('/admin/users/index');
 		}
 	}
 
@@ -152,11 +152,11 @@ class UsersController extends AppController
 			$this->User->save($user);
 			$this->Session->setFlash('Se desactiv&oacute; al Usuario con exito!', 'default', array('class'=>'alert alert-success'));
 
-			return $this->redirect('/users/index');
+			return $this->redirect('/admin/users/index');
 		} else {
 			$this->Session->setFlash('No existe Usuario con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
-			return $this->redirect('/users/index');
+			return $this->redirect('/admin/users/index');
 		}
 	}
 
