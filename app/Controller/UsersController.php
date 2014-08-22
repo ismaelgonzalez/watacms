@@ -83,8 +83,6 @@ class UsersController extends AppController
 		$this->set('sectionTitle', 'Agregar Usuarios');
 
 		if (!empty($this->data)) {
-			//debug($this->data);
-			//exit();
 			$this->User->create();
 			if (empty($this->data['User']['image']['name'])) {
 				unset($this->request->data['User']['image']);

@@ -23,7 +23,9 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testIndex() {
-		$this->markTestIncomplete('testIndex not implemented.');
+		//$this->markTestIncomplete('testIndex not implemented.');
+		$result = $this->testAction('/users/index', array('return' => 'result'));
+		debug($result);
 	}
 
 /**
@@ -32,7 +34,19 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminIndex() {
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		//we only list active records
+		$user = array(
+			'User' => array(
+				'email' => "email@email.com",
+				'password' => '12345678',
+				'role' => 'editor',
+				'status' => 0
+			)
+		);
+		$this->testAction('/admin/users/add', array('data' => $user, 'method' => 'post'));
+
+		$result = $this->testAction('/admin/users/index', array('return' => 'vars'));
+		$this->assertCount(3, $result['users']);
 	}
 
 /**
@@ -41,7 +55,39 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminAdd() {
-		$this->markTestIncomplete('testAdminAdd not implemented.');
+		$Users = $this->generate('Users', array(
+			'methods' => array('admin_add'),
+			'models' => array(
+				'User' => array('save')
+			),
+			'components' => array(
+				//'RequestHandler' => array('isPut'),
+				//'Email' => array('send'),
+				'Session'
+			)
+		));
+
+		$Users->Session
+			->expects($this->once())
+			->method('setFlash');
+		/*$Users->response
+			->expects($this->once())
+			->method('header')
+			->with('Location', '/admin/users/index');
+*/
+//		$this->controller = $Users;
+
+		$user = array(
+			'User' => array(
+				'email' => "email@email.com",
+				'password' => '12345678',
+				'role' => 'editor',
+				'status' => 1
+			)
+		);
+		$add_user = $this->testAction('/admin/users/add', array('data' => $user, 'method' => 'post'));
+		var_dump($add_user);
+		//$this->assertEquals('/admin/users/index', $this->headers['Location']);
 	}
 
 /**
