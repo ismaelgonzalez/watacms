@@ -17,6 +17,12 @@ class UsersControllerTest extends ControllerTestCase {
 		'app.author'
 	);
 
+	public function setUp()
+	{
+		parent::setUp();
+		$this->User = ClassRegistry::init('User');
+	}
+
 /**
  * testIndex method
  *
@@ -25,7 +31,7 @@ class UsersControllerTest extends ControllerTestCase {
 	public function testIndex() {
 		//$this->markTestIncomplete('testIndex not implemented.');
 		$result = $this->testAction('/users/index', array('return' => 'result'));
-		debug($result);
+		$this->assertNull($result);
 	}
 
 /**
@@ -55,28 +61,6 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminAdd() {
-		$Users = $this->generate('Users', array(
-			'methods' => array('admin_add'),
-			'models' => array(
-				'User' => array('save')
-			),
-			'components' => array(
-				//'RequestHandler' => array('isPut'),
-				//'Email' => array('send'),
-				'Session'
-			)
-		));
-
-		$Users->Session
-			->expects($this->once())
-			->method('setFlash');
-		/*$Users->response
-			->expects($this->once())
-			->method('header')
-			->with('Location', '/admin/users/index');
-*/
-//		$this->controller = $Users;
-
 		$user = array(
 			'User' => array(
 				'email' => "email@email.com",
@@ -85,9 +69,10 @@ class UsersControllerTest extends ControllerTestCase {
 				'status' => 1
 			)
 		);
-		$add_user = $this->testAction('/admin/users/add', array('data' => $user, 'method' => 'post'));
-		var_dump($add_user);
-		//$this->assertEquals('/admin/users/index', $this->headers['Location']);
+		$this->testAction('/admin/users/add', array('data' => $user, 'method' => 'post'));
+
+		$result = $this->testAction('/admin/users/index', array('return' => 'vars'));
+		$this->assertCount(4, $result['users']);
 	}
 
 /**
@@ -96,7 +81,20 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminEdit() {
-		$this->markTestIncomplete('testAdminEdit not implemented.');
+		$user = array(
+			'User' => array(
+				'id' => 1,
+				'email' => "bigguy@4u.com",
+				'password' => '12345678',
+				'role' => 'editor',
+				'status' => 1
+			)
+		);
+		$this->testAction('/admin/users/edit/1', array('data' => $user, 'method' => 'post'));
+
+		$result = $this->testAction('/admin/users/edit/1', array('return' => 'vars', 'method' => 'get'));
+
+		$this->assertEquals('bigguy@4u.com', $result['user']['User']['email']);
 	}
 
 /**
@@ -105,7 +103,10 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminDelete() {
-		$this->markTestIncomplete('testAdminDelete not implemented.');
+		$this->testAction('/admin/users/delete/1', array('method' => 'post'));
+
+		$result = $this->testAction('/admin/users/index', array('return' => 'vars'));
+		$this->assertCount(2, $result['users']);
 	}
 
 /**
@@ -130,9 +131,9 @@ class UsersControllerTest extends ControllerTestCase {
  * testBatchDelete method
  *
  * @return void
- */
+ *
 	public function testBatchDelete() {
 		$this->markTestIncomplete('testBatchDelete not implemented.');
 	}
-
+*/
 }
