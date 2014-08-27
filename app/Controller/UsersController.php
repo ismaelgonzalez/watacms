@@ -9,7 +9,7 @@ class UsersController extends AppController
 
 	public $components = array(
 		'Session',
-		/*'Auth' => array(
+		'Auth' => array(
 			'authorize' => array('Controller'),
 			'authenticate' => array(
 				'Form' => array(
@@ -19,19 +19,18 @@ class UsersController extends AppController
 					),
 					'scope' => array(
 						'User.status' => 1,
-						'User.signin_complete' => 1,
 					),
 				),
 			),
-		),*/
+		),
 		'Paginator',
 	);
-/*
+
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('login', 'logout', 'register', 'registered', 'confirm', 'getUser', 'profile', 'editSkinHairType', 'editBodyType', 'forgotPassword', 'renewPassword');
+		$this->Auth->allow('login', 'logout');
 	}
-
+/*
 	public function isAuthorized($user) {
 		if ($this->action === 'add' || $this->action === 'delete' || $this->action === 'edit' || $this->action === 'index'|| $this->action === 'cupones' || $this->action === 'stats') {
 			return parent::isAuthorized($user);
@@ -161,12 +160,13 @@ class UsersController extends AppController
 	}
 
 	public function login(){
-		//$this->layout = 'login';
+		$this->layout = 'login';
 
 		if($this->request->is('post')) {
 			if ($this->Auth->login()) {
 				if ($this->Auth->User('role') === 'admin') {
-					return $this->redirect('/admin');
+					//TODO: setup admin redirect route
+					return $this->redirect('/admin/users/index');
 				} elseif ($this->Auth->User('role') === 'user') {
 					return $this->redirect('/users/profile/' . $this->Auth->User('id'));
 				}

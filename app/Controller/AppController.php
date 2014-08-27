@@ -25,5 +25,18 @@ class AppController extends Controller {
 	public $components = array(
 		'DebugKit.Toolbar',
 		'Session',
+		'Auth' => array(
+			//TODO: change this redirect
+			'loginRedirect' => '/', //array('controller' => '/', 'action' => 'dashboard'),
+			'logoutRedirect' => '/', //array('controller' => 'users', 'action' => 'login'),
+			'authorize' => 'Controller',
+			'authError' => "No tienes acceso a esta area.",
+		),
 	);
+
+	public function beforeFilter() {
+		$this->Auth->allow(array('display', 'login'));
+		$this->Auth->flash['params']['class'] = 'alert alert-danger';
+		$this->Auth->autoRedirect = false;
+	}
 }
