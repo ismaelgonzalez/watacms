@@ -1,6 +1,5 @@
 <?php
-//App::uses('AuthComponen', 'Controller/Component');
-App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class User extends AppModel {
 	public $name = 'User';
@@ -50,7 +49,7 @@ class User extends AppModel {
 		$this->data[$this->alias]['status'] = isset($this->data[$this->alias]['status']) ? $this->data[$this->alias]['status'] : 1;
 
 		if( !empty($this->data[$this->alias]['password']) ) {
-			$passwordHasher = new SimplePasswordHasher(array('hashType' => 'sha256'));
+			$passwordHasher = new BlowfishPasswordHasher();
 			$this->data[$this->alias]['password'] = $passwordHasher->hash($this->data[$this->alias]['password']);
 		}
 

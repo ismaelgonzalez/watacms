@@ -28,17 +28,13 @@ class UsersController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('login', 'logout');
+		$this->Auth->allow('login', 'logout', 'admin_add');
 	}
-/*
-	public function isAuthorized($user) {
-		if ($this->action === 'add' || $this->action === 'delete' || $this->action === 'edit' || $this->action === 'index'|| $this->action === 'cupones' || $this->action === 'stats') {
-			return parent::isAuthorized($user);
-		}
 
-		return true;
+	public function isAuthorized($user) {
+		return parent::isAuthorized($user);
 	}
-*/
+
 	public $helpers = array('Paginator', 'Js', 'Thumbs');
 
 	//public $layout = "admin";
@@ -163,15 +159,12 @@ class UsersController extends AppController
 		$this->layout = 'login';
 
 		if($this->request->is('post')) {
+			debug($this->data);
+
 			if ($this->Auth->login()) {
-				if ($this->Auth->User('role') === 'admin') {
-					//TODO: setup admin redirect route
-					return $this->redirect('/admin/users/index');
-				} elseif ($this->Auth->User('role') === 'user') {
-					return $this->redirect('/users/profile/' . $this->Auth->User('id'));
-				}
-				//return $this->redirect($this->Auth->redirect());
+				return $this->redirect($this->Auth->redirect());
 			}
+			var_dump($this->Auth->User);
 			$this->Session->setFlash(__('Email o passowrd incorrectos, por favor intente de nuevo.'), 'default', array('class' => 'alert alert-danger'));
 		}
 

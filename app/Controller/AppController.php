@@ -26,8 +26,17 @@ class AppController extends Controller {
 		'DebugKit.Toolbar',
 		'Session',
 		'Auth' => array(
+			'authenticate' => array(
+				'Form' => array(
+					'fields' => array(
+						'username' => 'email',
+						'password' => 'password',
+					),
+					'passwordHasher' => 'Blowfish',
+				),
+			),
 			//TODO: change this redirect
-			'loginRedirect' => '/', //array('controller' => '/', 'action' => 'dashboard'),
+			'loginRedirect' => '/admin/users/index', //array('controller' => '/', 'action' => 'dashboard'),
 			'logoutRedirect' => '/', //array('controller' => 'users', 'action' => 'login'),
 			'authorize' => 'Controller',
 			'authError' => "No tienes acceso a esta area.",
@@ -38,5 +47,14 @@ class AppController extends Controller {
 		$this->Auth->allow(array('display', 'login'));
 		$this->Auth->flash['params']['class'] = 'alert alert-danger';
 		$this->Auth->autoRedirect = false;
+	}
+
+	public function isAuthorized($user) {
+		if (!empty($user)) {
+
+			return true;
+		}
+
+		return false;
 	}
 }

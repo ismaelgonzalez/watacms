@@ -108,32 +108,4 @@ class UsersControllerTest extends ControllerTestCase {
 		$result = $this->testAction('/admin/users/index', array('return' => 'vars'));
 		$this->assertCount(2, $result['users']);
 	}
-
-/**
- * testLogin method
- *
- * @return void
- */
-	public function testLogin() {
-		$this->markTestIncomplete('testLogin not implemented.');
-	}
-
-/**
- * testLogout method
- *
- * @return void
- */
-	public function testLogout() {
-		$this->markTestIncomplete('testLogout not implemented.');
-	}
-
-/**
- * testBatchDelete method
- *
- * @return void
- *
-	public function testBatchDelete() {
-		$this->markTestIncomplete('testBatchDelete not implemented.');
-	}
-*/
 }
