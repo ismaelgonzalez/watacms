@@ -37,7 +37,7 @@ class UsersController extends AppController
 
 	public $helpers = array('Paginator', 'Js', 'Thumbs');
 
-	//public $layout = "admin";
+	public $layout = "admin";
 
 	public $paginate = array(
 		'conditions' => array(
