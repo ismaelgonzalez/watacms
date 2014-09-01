@@ -7,10 +7,10 @@ class StatusHelper extends AppHelper {
 		$badge = '';
 		switch($status) {
 			case 1:
-				$badge = "<span class='label label-success'>Activo</span>";
+				$badge = "<span class='badge alert-success'>Activo</span>";
 				break;
 			case 0:
-				$badge = "<span class='label label-danger'>Desactivado</span>";
+				$badge = "<span class='badge alert-danger'>Desactivado</span>";
 				break;
 		}
 
@@ -24,19 +24,19 @@ class StatusHelper extends AppHelper {
 		$badge = '';
 		switch($position) {
 			case 'U':
-				$badge = "<span class='label label-info'>Arriba</span>";
+				$badge = "<span class='badge alert-info'>Arriba</span>";
 				break;
 			case 'D':
-				$badge = "<span class='label label-info'>Abajo</span>";
+				$badge = "<span class='badge alert-info'>Abajo</span>";
 				break;
 			case 'L':
-				$badge = "<span class='label label-info'>Izquierda</span>";
+				$badge = "<span class='badge alert-info'>Izquierda</span>";
 				break;
 			case 'R':
-				$badge = "<span class='label label-info'>Derecha</span>";
+				$badge = "<span class='badge alert-info'>Derecha</span>";
 				break;
 			case 'W':
-				$badge = "<span class='label label-info'>Wallpaper</span>";
+				$badge = "<span class='badge alert-info'>Wallpaper</span>";
 				break;
 		}
 
@@ -50,16 +50,16 @@ class StatusHelper extends AppHelper {
 		$badge = '';
 		switch ($zone) {
 			case 'N':
-				$badge = "<span class='label label-info'>Zona Norte</span>";
+				$badge = "<span class='badge alert-info'>Zona Norte</span>";
 				break;
 			case 'S':
-				$badge = "<span class='label label-info'>Zona Sur</span>";
+				$badge = "<span class='badge alert-info'>Zona Sur</span>";
 				break;
 			case 'P':
-				$badge = "<span class='label label-info'>Zona Poniente</span>";
+				$badge = "<span class='badge alert-info'>Zona Poniente</span>";
 				break;
 			case 'O':
-				$badge = "<span class='label label-info'>Zona Oriente</span>";
+				$badge = "<span class='badge alert-info'>Zona Oriente</span>";
 				break;
 		}
 
@@ -73,13 +73,13 @@ class StatusHelper extends AppHelper {
 		$badge = '';
 		switch ($role) {
 			case 'admin':
-				$badge = "<span class='label label-primary'>Admin</span>";
+				$badge = "<span class='badge alert-info'>Admin</span>";
 				break;
 			case 'editor':
-				$badge = "<span class='label label-warning'>Editor</span>";
+				$badge = "<span class='badge alert-warning'>Editor</span>";
 				break;
 			default:
-				$badge = "<span class='label label-warning'>Editor</span>";
+				$badge = "<span class='badge alert-warning'>Editor</span>";
 				break;
 		}
 

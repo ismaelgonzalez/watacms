@@ -9,49 +9,55 @@
 	<?php
 	echo $this->Html->meta('icon');
 
-	//echo $this->Html->css('cake.generic');
+	echo $this->Html->css('bootstrap.min');
+	echo $this->Html->css('sb-admin');
+
+	echo $this->HTML->script('jquery-1.11.0');
+	echo $this->HTML->script('bootstrap.min');
 
 	echo $this->fetch('meta');
 	echo $this->fetch('css');
 	echo $this->fetch('script');
 	?>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<link href="/css/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<div id="container">
-	<nav>Show navbar here</nav>
-	<aside>
-		sidebar?
-	</aside>
-	<section>
-		main content
-	</section>
-	<article>
-		<header>
-			<h1>All About Flour<h1>
-					<p class="byline">by Jane Doe</p>
-		</header>
-		<section>
-			<h2>The Two Types of Wheat</h2>
-			<p>There … to rise.</p>
-			<p>Where … with less protein.</p>
-		</section>
-		<aside>
-			If you use organic flour you very often get better bread
-		</aside>
-	</article>
-	<footer>
-		footer
-	</footer>
+<div id="wrapper">
+	<!-- Navication -->
+	<?php echo $this->element('admin_navbar'); ?>
+	<!-- Navication -->
+
+	<div id="page-wrapper" style="min-height: 765px;">
+	<div class="container-fluid">
+
+	<!-- Page Heading -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				<?php echo $pageHeader; ?> <small><?php echo $sectionTitle; ?></small>
+			</h1>
+		</div>
+	</div>
+	<!-- /.row -->
+
+	<div class="row"> <!-- show alerts -->
+		<div class="col-lg-12">
+			<?php echo $this->Session->flash(); ?>
+		</div>
+	</div>
+	<!-- /.row -->
+
+	<?php
+		echo $this->fetch('content');
+	?>
+
+	</div>
 </div>
 </body>
 </html>

@@ -63,8 +63,11 @@ echo $this->Form->input('Author.bio', array(
 ));
 
 if (!empty($user['Author']['pic'])) {
-	echo "<div class='row'>";
+	echo "<div class='form-group'>";
+	echo "<label class='col-lg-2'></label>";
+	echo "<div class='col-lg-4'>";
 	$this->Thumbs->user_thumbnail($user, 250);
+	echo "</div>";
 	echo "</div>";
 }
 

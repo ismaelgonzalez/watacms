@@ -55,9 +55,9 @@ class UsersController extends AppController
 	}
 
 	public function admin_index(){
-		$this->set('title_for_layout', 'Administrar Usuarios');
-		$this->set('pageHeader', 'Usuarios');
-		$this->set('sectionTitle', 'Lista de Usuarios');
+		$this->set('title_for_layout', 'Administrar Editores');
+		$this->set('pageHeader', 'Editores');
+		$this->set('sectionTitle', 'Lista de Editores');
 
 		$this->Paginator->settings= array(
 			'conditions' => array(
@@ -73,9 +73,9 @@ class UsersController extends AppController
 	}
 
 	public function admin_add(){
-		$this->set('title_for_layout', 'Administrar Usuarios');
-		$this->set('pageHeader', 'Usuarios');
-		$this->set('sectionTitle', 'Agregar Usuarios');
+		$this->set('title_for_layout', 'Administrar Editores');
+		$this->set('pageHeader', 'Editores');
+		$this->set('sectionTitle', 'Agregar');
 
 		if (!empty($this->data)) {
 			$this->User->create();
@@ -86,25 +86,25 @@ class UsersController extends AppController
 			$this->request->data['User']['signin_complete'] = 1;
 
 			if (!$this->User->saveAssociated($this->data)) {
-				$this->Session->setFlash('No se pudo guardar al Usuario  :S', 'default', array('class'=>'alert alert-danger'));
+				$this->Session->setFlash('No se pudo guardar al Editor  :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
 			}
 
-			$this->Session->setFlash('Se agreg&oacute; al nuevo Usuario!', 'default', array('class'=>'alert alert-success'));
+			$this->Session->setFlash('Se agreg&oacute; al nuevo Editor!', 'default', array('class'=>'alert alert-success'));
 
 			return $this->redirect('/admin/users/index');
 		}
 	}
 
 	public function admin_edit($id){
-		$this->set('title_for_layout', 'Administrar Usuarios');
-		$this->set('pageHeader', 'Usuarios');
-		$this->set('sectionTitle', 'Editar Usuario');
+		$this->set('title_for_layout', 'Administrar Editores');
+		$this->set('pageHeader', 'Editores');
+		$this->set('sectionTitle', 'Editar');
 
 		$user = $this->User->findById($id);
 		if (empty($user)) {
-			$this->Session->setFlash('No existe Usuario con este ID :(', 'default', array('class'=>'alert alert-danger'));
+			$this->Session->setFlash('No existe Editor con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/admin/users/index');
 		}
@@ -119,12 +119,12 @@ class UsersController extends AppController
 				unset($this->request->data['User']['password']);
 			}
 			if (!$this->User->saveAssociated($this->data)) {
-				$this->Session->setFlash('No se pudo guardar al Usuario  :S', 'default', array('class'=>'alert alert-danger'));
+				$this->Session->setFlash('No se pudo guardar al Editor  :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
 			}
 
-			$this->Session->setFlash('Se editó al Usuario!', 'default', array('class'=>'alert alert-success'));
+			$this->Session->setFlash('Se editó al Editor!', 'default', array('class'=>'alert alert-success'));
 
 			return $this->redirect('/admin/users/index');
 		}
@@ -145,11 +145,11 @@ class UsersController extends AppController
 		if ($user) {
 			$user['User']['status'] = 0;
 			$this->User->save($user);
-			$this->Session->setFlash('Se desactiv&oacute; al Usuario con exito!', 'default', array('class'=>'alert alert-success'));
+			$this->Session->setFlash('Se desactiv&oacute; al Editor con exito!', 'default', array('class'=>'alert alert-success'));
 
 			return $this->redirect('/admin/users/index');
 		} else {
-			$this->Session->setFlash('No existe Usuario con este ID :(', 'default', array('class'=>'alert alert-danger'));
+			$this->Session->setFlash('No existe Editor con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/admin/users/index');
 		}
@@ -162,7 +162,7 @@ class UsersController extends AppController
 			debug($this->data);
 
 			if ($this->Auth->login()) {
-				return $this->redirect($this->Auth->redirect());
+				return $this->redirect('/admin/dashboard');
 			}
 			var_dump($this->Auth->User);
 			$this->Session->setFlash(__('Email o passowrd incorrectos, por favor intente de nuevo.'), 'default', array('class' => 'alert alert-danger'));
@@ -198,7 +198,7 @@ class UsersController extends AppController
 			}
 		}
 
-		$this->Session->setFlash('Se desactivaron los Usuarios con exito!', 'default', array('class'=>'alert alert-success'));
+		$this->Session->setFlash('Se desactivaron los Editores con exito!', 'default', array('class'=>'alert alert-success'));
 		return $this->redirect('/users/');
 	}
 

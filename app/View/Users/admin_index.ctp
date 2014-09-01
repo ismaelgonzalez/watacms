@@ -1,4 +1,4 @@
-<h3><a href="/admin/users/add/">Agregar Usuarios</a></h3>
+<h3><a href="/admin/users/add/">Agregar Editores</a></h3>
 <?php
 if (sizeof($users) < 1) {
 	echo "<h4>Por el momento no tenemos usuarios en el sistema.</h4>";
@@ -23,9 +23,8 @@ if (sizeof($users) < 1) {
 					<td><?php echo $this->Status->getRole($u['User']['role']); ?></td>
 					<td><?php echo $this->Status->getStatus($u['User']['status']); ?></td>
 					<td>
-						<a href="/admin/users/edit/<?php echo $u['User']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Usuario">Edit</i></a> |
-						<i class="icon-remove-sign delete" onclick="borrar(<?php echo $u['User']['id']; ?>)" data-toggle="tooltip" title="Desactivar Usuario">Delete</i> |
-						Tal vez algo de agregar usuario
+						<a href="/admin/users/edit/<?php echo $u['User']['id']; ?>"><i class="fa fa-fw fa-edit" data-toggle="tooltip" title="Editar Usuario"></i></a> |
+						<i class="fa fa-fw fa-times-circle text-danger" onclick="borrar(<?php echo $u['User']['id']; ?>)" data-toggle="tooltip" title="Desactivar Usuario"></i>
 					</td>
 				</tr>
 			<?php } ?>
@@ -55,7 +54,7 @@ if (sizeof($users) < 1) {
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(function() {
 		$("[data-toggle=tooltip]").tooltip({placement: 'right'});
 
 		$("#confirmDelete").click(function() {

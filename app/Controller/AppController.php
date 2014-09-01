@@ -35,9 +35,8 @@ class AppController extends Controller {
 					'passwordHasher' => 'Blowfish',
 				),
 			),
-			//TODO: change this redirect
-			'loginRedirect' => '/admin/users/index', //array('controller' => '/', 'action' => 'dashboard'),
-			'logoutRedirect' => '/', //array('controller' => 'users', 'action' => 'login'),
+			'loginRedirect' => array('controller' => 'dashboards', 'action' => 'index'),
+			'logoutRedirect' => '/',
 			'authorize' => 'Controller',
 			'authError' => "No tienes acceso a esta area.",
 		),
@@ -46,7 +45,12 @@ class AppController extends Controller {
 	public function beforeFilter() {
 		$this->Auth->allow(array('display', 'login'));
 		$this->Auth->flash['params']['class'] = 'alert alert-danger';
-		$this->Auth->autoRedirect = false;
+		$this->Auth->autoRedirect = true;
+
+		$logged_user = $this->Session->read('Auth.User');
+		if ($logged_user) {
+			$this->set('logged_user', $logged_user);
+		}
 	}
 
 	public function isAuthorized($user) {
