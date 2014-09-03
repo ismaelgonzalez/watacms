@@ -19,5 +19,7 @@ class DashboardsController extends AppController {
 
 	public function index() {
 		$this->layout = 'admin';
+		$this->set('pageHeader', 'Dashboard');
+		$this->set('sectionTitle', 'Ultimos Datos');
 	}
 }

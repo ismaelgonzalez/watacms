@@ -33,7 +33,7 @@
 	<?php echo $this->element('admin_navbar'); ?>
 	<!-- Navication -->
 
-	<div id="page-wrapper" style="min-height: 765px;">
+	<div id="page-wrapper" style="min-height: 1024px;">
 	<div class="container-fluid">
 
 	<!-- Page Heading -->
