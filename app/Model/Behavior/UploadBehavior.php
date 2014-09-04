@@ -1,6 +1,6 @@
 <?php
 class UploadBehavior extends ModelBehavior {
-	public function uploadPic(Model $Model, $destination){
+	public function uploadPic(Model $Model, $destination, $resize_override = null){
 		if (!$destination) {
 			$destination = 'posts';
 		}
@@ -28,7 +28,7 @@ class UploadBehavior extends ModelBehavior {
 
 			if ($typeOK) {  //upload
 				if(move_uploaded_file($pics['pic']['tmp_name'], $pics_dir.DS.$filename)) {
-					if($this->resize_image($filename, $options=array('files_dir' => $pics_dir, 'ext' => $new_file['extension']))) {
+					if($this->resize_image($filename, $options=array('files_dir' => $pics_dir, 'ext' => $new_file['extension'], 'resize_override' => $resize_override))) {
 						return $filename;
 					}
 				}
@@ -40,6 +40,10 @@ class UploadBehavior extends ModelBehavior {
 
 	public function resize_image($filename, $options=array())
 	{
+		if ($options['resize_override']) {
+			return true;
+		}
+
 		$thumbs_width = isset($options['width']) ? intval($options['width']) : 600;
 		$thumbs_height = isset($options['height']) ? intval($options['height']) : 450;
 		$files_dir = $options['files_dir'];

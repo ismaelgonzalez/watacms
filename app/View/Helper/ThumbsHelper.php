@@ -7,4 +7,12 @@ class ThumbsHelper extends AppHelper {
 
 		echo $div;
 	}
+
+	public function banner_thumbnail($banner, $thumb_size){
+		$div = "<div class='thumbnail pull-right'>
+			<img src='/files/banners/".$banner['Banner']['pic']."' alt='".$banner['Banner']['name']."' width='".$thumb_size."' class='img-thumbnail'>
+			</div>";
+
+		echo $div;
+	}
 }

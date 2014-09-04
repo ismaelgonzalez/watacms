@@ -46,8 +46,8 @@
 			<li>
 				<a href="#"><i></i>Tags</a>
 			</li>
-			<li>
-				<a href="#"><i></i>Banners</a>
+			<li <?php if($this->params['controller'] == 'banners') { echo 'class="active"'; } ?>>
+				<a href="/admin/banners"><i class="fa fa-fw fa-money"></i> Banners</a>
 			</li>
 			<li>
 				<a href="#"><i></i>Galerias</a>
@@ -62,7 +62,7 @@
 				<a href="#"><i></i>Encuestas</a>
 			</li>
 			<li <?php if($this->params['controller'] == 'users') { echo 'class="active"'; } ?>>
-				<a href="/admin/users/"><i class="fa fa-fw fa-users"></i>Editores</a>
+				<a href="/admin/users/"><i class="fa fa-fw fa-users"></i> Editores</a>
 			</li>
 		</ul>
 	</div>

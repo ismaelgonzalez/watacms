@@ -85,4 +85,24 @@ class StatusHelper extends AppHelper {
 
 		return $badge;
 	}
+
+	/*
+		 *This function returns a bagde with Si or No
+		 */
+	public function getSiNo($is_adsense){
+		$badge = '';
+		switch ($is_adsense) {
+			case '1':
+				$badge = "<span class='badge alert-warning'>Si</span>";
+				break;
+			case 'editor':
+				$badge = "<span class='badge alert-info'>No</span>";
+				break;
+			default:
+				$badge = "<span class='badge alert-info'>No</span>";
+				break;
+		}
+
+		return $badge;
+	}
 }

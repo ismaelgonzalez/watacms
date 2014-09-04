@@ -27,18 +27,18 @@ class Banner extends AppModel {
 				'required' => true,
 			),
 		),
-		'pic' => array(
+		/*'pic' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'La imagen del banner es requerida',
 				'required' => true,
-			),
+			),*/
 		'link' => array(
-				'url' => array(
-					'rule' => array('url'),
-					'message' => 'El Link tiene que ser un url válido',
-					'required' => false,
-				),
+			'url' => array(
+				'rule' => array('url'),
+				'message' => 'El Link tiene que ser un url válido',
+				'required' => false,
+				'allowEmpty' => true
 			),
 		),
 	);
@@ -63,8 +63,19 @@ class Banner extends AppModel {
 	public function beforeSave($options = array()) {
 		parent::beforeSave();
 
+		$this->data[$this->alias]['status'] = isset($this->data[$this->alias]['status']) ? $this->data[$this->alias]['status'] : 1;
+
+		//saving the start and end dates
+		if (!empty($this->data[$this->alias]['start_date'])) {
+			$this->data[$this->alias]['start_date'] = date("Y-m-d", strtotime($this->data[$this->alias]['start_date']));
+		}
+		if (!empty($this->data[$this->alias]['end_date'])) {
+			$this->data[$this->alias]['end_date'] = date("Y-m-d", strtotime($this->data[$this->alias]['end_date']));
+		}
+
+
 		if(!empty($this->data[$this->alias]['pic']['name'])){
-			$pic_name = $this->uploadPic('banners');
+			$pic_name = $this->uploadPic('banners', true);
 			$this->data[$this->alias]['pic'] = $pic_name;
 		}
 

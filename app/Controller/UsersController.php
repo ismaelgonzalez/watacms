@@ -79,11 +79,6 @@ class UsersController extends AppController
 
 		if (!empty($this->data)) {
 			$this->User->create();
-			if (empty($this->data['User']['image']['name'])) {
-				unset($this->request->data['User']['image']);
-			}
-			//since we're adding this user from admin, automatically set signin_complete=1
-			$this->request->data['User']['signin_complete'] = 1;
 
 			if (!$this->User->saveAssociated($this->data)) {
 				$this->Session->setFlash('No se pudo guardar al Editor  :S', 'default', array('class'=>'alert alert-danger'));

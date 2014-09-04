@@ -28,7 +28,14 @@ class BannerTest extends CakeTestCase {
 	}
 
 	public function test_getInstance() {
+		$banner = $this->Banner->find('first');
+		$this->assertArrayHasKey('Banner', $banner);
 
+		$expected = 'http://www.link.com';
+		$this->assertEquals($expected, $banner['Banner']['link']);
+
+		$expected_size = '728x90';
+		$this->assertEquals($expected_size, $banner['BannerSize']['size']);
 	}
 
 /**

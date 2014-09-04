@@ -28,7 +28,13 @@ class BannerSizeTest extends CakeTestCase {
 	}
 
 	public function test_getInstance() {
+		$banner_size= $this->BannerSize->find('first', array('recursive' => -1));
+		$expected = '728x90';
 
+		$this->assertEquals($expected, $banner_size['BannerSize']['size']);
+
+		$all_banner_size= $this->BannerSize->find('all', array('recursive' => -1));
+		$this->assertCount(2, $all_banner_size);
 	}
 /**
  * tearDown method

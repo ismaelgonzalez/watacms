@@ -17,22 +17,20 @@ class BannersControllerTest extends ControllerTestCase {
 		'app.banner_size'
 	);
 
+	public function setUp()
+	{
+		parent::setUp();
+		$this->Banner = ClassRegistry::init('Banner');
+	}
+
 /**
  * testIndex method
  *
  * @return void
  */
 	public function testIndex() {
-		$this->markTestIncomplete('testIndex not implemented.');
-	}
-
-/**
- * testView method
- *
- * @return void
- */
-	public function testView() {
-		$this->markTestIncomplete('testView not implemented.');
+		$result = $this->testAction('/banners/index', array('return' => 'result'));
+		$this->assertNull($result);
 	}
 
 /**
@@ -41,7 +39,23 @@ class BannersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminIndex() {
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		$banner = array(
+			'Banner' => array(
+				'name' => 'banner 3',
+				'link' => 'http://www.link.com',
+				'pic' => 'banner3.gif',
+				'start_date' => '2014-09-02',
+				'end_date' => '2014-09-22',
+				'is_adsense' => 0,
+				'adsense_code' => '',
+				'banner_size_id' => 1,
+				'status' => 0
+			)
+		);
+		$this->testAction('/admin/banners/add', array('data' => $banner, 'method' => 'post'));
+
+		$result = $this->testAction('/admin/banners/index', array('return' => 'vars'));
+		$this->assertCount(2, $result['banners']);
 	}
 
 /**
@@ -50,7 +64,23 @@ class BannersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminAdd() {
-		$this->markTestIncomplete('testAdminAdd not implemented.');
+		$banner = array(
+			'Banner' => array(
+				'name' => 'banner 3',
+				'link' => 'http://www.link.com',
+				'pic' => 'banner3.gif',
+				'start_date' => '2014-09-02',
+				'end_date' => '2014-09-22',
+				'is_adsense' => 0,
+				'adsense_code' => '',
+				'status' => 1,
+				'banner_size_id' => 2,
+			)
+		);
+		$this->testAction('/admin/banners/add', array('data' => $banner, 'method' => 'post'));
+
+		$result = $this->testAction('/admin/banners/index', array('return' => 'vars'));
+		$this->assertCount(3, $result['banners']);
 	}
 
 /**
@@ -59,7 +89,27 @@ class BannersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminEdit() {
-		$this->markTestIncomplete('testAdminEdit not implemented.');
+		$banner = array(
+			'Banner' => array(
+				'id' => 1,
+				'name' => 'banner Gobierno',
+				'link' => 'http://www.sonora.gob',
+				'pic' => 'banner_gobierno.gif',
+				'start_date' => '2014-09-02',
+				'end_date' => '2014-09-22',
+				'is_adsense' => 0,
+				'adsense_code' => '',
+				'status' => 1,
+				'banner_size_id' => 1,
+			)
+		);
+		$this->testAction('/admin/banners/edit/1', array('data' => $banner, 'method' => 'post'));
+
+		$result = $this->testAction('/admin/banners/edit/1', array('return' => 'vars', 'method' => 'get'));
+
+		$this->assertEquals($banner['Banner']['name'], $result['banner']['Banner']['name']);
+		$this->assertEquals($banner['Banner']['link'], $result['banners']['Banner']['link']);
+		$this->assertEquals($banner['Banner']['pic'], $result['banners']['Banner']['pic']);
 	}
 
 /**
@@ -68,7 +118,10 @@ class BannersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminDelete() {
-		$this->markTestIncomplete('testAdminDelete not implemented.');
+		$this->testAction('/admin/banners/delete/1', array('method' => 'post'));
+
+		$result = $this->testAction('/admin/banners/index', array('return' => 'vars'));
+		$this->assertCount(1, $result['banners']);
 	}
 
 }
