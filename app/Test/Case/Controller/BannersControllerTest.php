@@ -94,11 +94,10 @@ class BannersControllerTest extends ControllerTestCase {
 				'id' => 1,
 				'name' => 'banner Gobierno',
 				'link' => 'http://www.sonora.gob',
-				'pic' => 'banner_gobierno.gif',
 				'start_date' => '2014-09-02',
 				'end_date' => '2014-09-22',
-				'is_adsense' => 0,
-				'adsense_code' => '',
+				'is_adsense' => 1,
+				'adsense_code' => 'this would be the code',
 				'status' => 1,
 				'banner_size_id' => 1,
 			)
@@ -108,8 +107,8 @@ class BannersControllerTest extends ControllerTestCase {
 		$result = $this->testAction('/admin/banners/edit/1', array('return' => 'vars', 'method' => 'get'));
 
 		$this->assertEquals($banner['Banner']['name'], $result['banner']['Banner']['name']);
-		$this->assertEquals($banner['Banner']['link'], $result['banners']['Banner']['link']);
-		$this->assertEquals($banner['Banner']['pic'], $result['banners']['Banner']['pic']);
+		$this->assertEquals($banner['Banner']['link'], $result['banner']['Banner']['link']);
+		$this->assertEquals($banner['Banner']['adsense_code'], $result['banner']['Banner']['adsense_code']);
 	}
 
 /**

@@ -9,9 +9,15 @@ class ThumbsHelper extends AppHelper {
 	}
 
 	public function banner_thumbnail($banner, $thumb_size){
-		$div = "<div class='thumbnail pull-right'>
+		$ext = pathinfo($banner['Banner']['pic'], PATHINFO_EXTENSION);
+
+		if ($ext == 'swf') {
+			$div = '<embed src="/files/banners/' . $banner['Banner']['pic'] . '">';
+		} else {
+			$div = "<div class='thumbnail pull-right'>
 			<img src='/files/banners/".$banner['Banner']['pic']."' alt='".$banner['Banner']['name']."' width='".$thumb_size."' class='img-thumbnail'>
 			</div>";
+		}
 
 		echo $div;
 	}

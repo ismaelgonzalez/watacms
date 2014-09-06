@@ -44,6 +44,14 @@ class BannersController extends AppController {
 		$this->set('sectionTitle', 'Lista de Banners');
 
 		$this->Banner->recursive = 0;
+		$this->Paginator->settings= array(
+			'conditions' => array(
+				'Banner.status' => 1,
+			),
+			'order' => array(
+				'Banner.id' => 'DESC',
+			),
+		);
 		$this->set('banners', $this->Paginator->paginate());
 	}
 
@@ -88,19 +96,29 @@ class BannersController extends AppController {
 		$this->set('pageHeader', 'Banners');
 		$this->set('sectionTitle', 'Editar');
 
-		if (!$this->Banner->exists($id)) {
-			throw new NotFoundException(__('Banner Invalid0 banner'));
+		$banner = $this->Banner->findById($id);
+		if (empty($banner)) {
+			$this->Session->setFlash('No existe Banner con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/admin/banners/index');
 		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Banner->save($this->request->data)) {
-				$this->Session->setFlash(__('The banner has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The banner could not be saved. Please, try again.'));
+
+		$this->set('banner', $banner);
+
+		if (!empty($this->data)) {
+			if (empty($this->data['Banner']['pic']['name'])) {
+				unset($this->request->data['Banner']['pic']);
 			}
-		} else {
-			$options = array('conditions' => array('Banner.' . $this->Banner->primaryKey => $id));
-			$this->request->data = $this->Banner->find('first', $options);
+
+			if (!$this->Banner->save($this->data)) {
+				$this->Session->setFlash('No se pudo guardar al Banner  :S', 'default', array('class'=>'alert alert-danger'));
+
+				return false;
+			}
+
+			$this->Session->setFlash('Se editó al Banner!', 'default', array('class'=>'alert alert-success'));
+
+			return $this->redirect('/admin/banners/index');
 		}
 		$bannerSizes = $this->Banner->BannerSize->find('list');
 		$this->set(compact('bannerSizes'));
@@ -114,16 +132,35 @@ class BannersController extends AppController {
  * @return void
  */
 	public function admin_delete($id = null) {
-		$this->Banner->id = $id;
-		if (!$this->Banner->exists()) {
-			throw new NotFoundException(__('Invalid banner'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Banner->delete()) {
-			$this->Session->setFlash(__('The banner has been deleted.'));
+		$this->autoRender = false;
+
+		$banner = $this->Banner->find('first', array(
+			'conditions' => array(
+				'Banner.id' => $id
+			),
+			'fields' => array(
+				'Banner.id',
+				'Banner.name',
+				'Banner.status',
+			)
+		));
+
+		if ($banner) {
+			$banner['Banner']['status'] = 0;
+			if ($this->Banner->save($banner) ) {
+				$this->Session->setFlash('Se desactiv&oacute; al Banner con exito!', 'default', array('class'=>'alert alert-success'));
+
+				return $this->redirect('/admin/banners/index');
+			} else {
+				$this->Session->setFlash('WTF No se borro el Banner :(', 'default', array('class'=>'alert alert-danger'));
+
+				return $this->redirect('/admin/banners/index');
+			}
+
 		} else {
-			$this->Session->setFlash(__('The banner could not be deleted. Please, try again.'));
+			$this->Session->setFlash('No existe Banner con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/admin/banners/index');
 		}
-		return $this->redirect(array('action' => 'index'));
 	}
 }

@@ -26,8 +26,8 @@ if (sizeof($banners) < 1) {
 		<td><?php echo h($banner['Banner']['id']); ?>&nbsp;</td>
 		<td><?php echo h($banner['Banner']['name']); ?>&nbsp;</td>
 		<td><?php echo h($banner['Banner']['link']); ?>&nbsp;</td>
-		<td><?php echo h($banner['Banner']['start_date']); ?>&nbsp;</td>
-		<td><?php echo h($banner['Banner']['end_date']); ?>&nbsp;</td>
+		<td><?php echo date('d/M/Y', strtotime($banner['Banner']['start_date'])); ?>&nbsp;</td>
+		<td><?php echo date('d/M/Y', strtotime($banner['Banner']['end_date'])); ?>&nbsp;</td>
 		<td><?php echo $this->Status->getSiNo($banner['Banner']['is_adsense']); ?>&nbsp;</td>
 		<td><?php echo $this->Status->getStatus($banner['Banner']['status']); ?>&nbsp;</td>
 		<td>

@@ -8,7 +8,7 @@ class UploadBehavior extends ModelBehavior {
 
 		$pics_dir = WWW_ROOT.'files'.DS.$destination;
 
-		$allowed_types = array('image/gif','image/jpeg','image/pjpeg','image/png', 'application/x-shockwave-flash');
+		$allowed_types = array('image/gif','image/jpeg','image/pjpeg','image/png', 'application/x-shockwave-flash', 'application/vnd.adobe.flash.movie');
 
 		$filename = false; //in case there is no file to be uploaded we return false.
 
@@ -19,8 +19,11 @@ class UploadBehavior extends ModelBehavior {
 
 			$typeOK = false;
 
+			$finfo = finfo_open(FILEINFO_MIME_TYPE);
+			$file_type = finfo_file($finfo, $pics['pic']['tmp_name']);
+
 			foreach ($allowed_types as $type) {     //check to make sure file type is allowed
-				if ($type == $pics['pic']['type']) {
+				if ($type == $file_type) {
 					$typeOK = true;
 					break;
 				}

@@ -19,39 +19,39 @@
 		<legend><?php echo __('Admin Editar Banner'); ?></legend>
 		<?php
 		echo $this->Form->input('id', array(
-			//'default' => $this->request->data['Banner']['id']
+			'default' => $banner['Banner']['id']
 		));
 		echo $this->Form->input('name', array(
 			'label' => array('text' => 'Nombre', 'class' => 'control-label my-label col-lg-2'),
 			'class' => 'form-control',
 			'between' => '<div class="col-lg-4">',
-			//'default' => $this->request->data['Banner']['name'],
+			'default' => $banner['Banner']['name'],
 		));
 		echo $this->Form->input('link', array(
 			'label' => array('text' => 'Link', 'class' => 'control-label my-label col-lg-2'),
 			'class' => 'form-control',
 			'between' => '<div class="col-lg-4">',
-			//'default' => $this->request->data['Banner']['link'],
+			'default' => $banner['Banner']['link'],
 		));
 		?>
 		<div class="form-group">
 			<label class="control-label my-label col-lg-2" style="padding-top: 0">Es Banner de Adsense?</label>
 			<div class="col-lg-4">
 				<label for="BannerIsAdsense1">Si</label>
-				<input type="radio" name="data[Banner][is_adsense]" id="BannerIsAdsense1" value="1" <?php if ($this->request->data['Banner']['is_adsense'] == 1) { echo 'checked="checked"'; } ?>>
+				<input type="radio" name="data[Banner][is_adsense]" id="BannerIsAdsense1" value="1" <?php if ($banner['Banner']['is_adsense'] == 1) { echo 'checked="checked"'; } ?>>
 				<label for="BannerIsAdsense0">No</label>
-				<input type="radio" name="data[Banner][is_adsense]" id="BannerIsAdsense0" value="0" <?php if ($this->request->data['Banner']['is_adsense'] == 0) { echo 'checked="checked"'; } ?>">
+				<input type="radio" name="data[Banner][is_adsense]" id="BannerIsAdsense0" value="0" <?php if ($banner['Banner']['is_adsense'] == 0) { echo 'checked="checked"'; } ?>">
 			</div>
 		</div>
 		<?php
-		if ($this->request->data['Banner']['is_adsense'] == 1) {
+		if ($banner['Banner']['is_adsense'] == 1) {
 			echo $this->Form->input('adsense_code', array(
 				'label' => array('text' => 'Código Adsense', 'class' => 'control-label my-label col-lg-2'),
 				'class' => 'form-control',
 				'type' => 'textarea',
 				'between' => '<div class="col-lg-4">',
 				'before' => '<div class="form-group banner-adsense">',
-				'default' => $this->request->data['Banner']['adsense_code']
+				'default' => $banner['Banner']['adsense_code']
 			));
 			echo $this->Form->input('pic', array(
 				'label' => array('text' => 'Banner Nuevo', 'class' => 'control-label my-label col-lg-2'),
@@ -62,18 +62,18 @@
 			));
 			echo $this->Form->input('old_image', array(
 				'type' => 'hidden',
-				'default' => $this->request->data['Banner']['pic'],
+				'default' => $banner['Banner']['pic'],
 				'before' => '<div class="form-group banner-image" style="display: none;">',
 			));
 		}
-		if ($this->request->data['Banner']['is_adsense'] == 0) {
+		if ($banner['Banner']['is_adsense'] == 0) {
 			echo $this->Form->input('adsense_code', array(
 				'label' => array('text' => 'Código Adsense', 'class' => 'control-label my-label col-lg-2'),
 				'class' => 'form-control',
 				'type' => 'textarea',
 				'between' => '<div class="col-lg-4">',
 				'before' => '<div class="form-group banner-adsense" style="display: none;">',
-				'default' => $this->request->data['Banner']['adsense_code']
+				'default' => $banner['Banner']['adsense_code']
 			));
 			echo $this->Form->input('pic', array(
 				'label' => array('text' => 'Banner Nuevo', 'class' => 'control-label my-label col-lg-2'),
@@ -84,54 +84,37 @@
 			));
 			echo $this->Form->input('old_image', array(
 				'type' => 'hidden',
-				'default' => $this->request->data['Banner']['pic'],
+				'default' => $banner['Banner']['pic'],
 				'before' => '<div class="form-group banner-image">',
 			));
 			?>
 			<div class="form-group">
 				<div class="col-lg-6" style="text-align: right">
 					<p>
-						Imagen actual: <?php echo $this->request->data['Banner']['pic']; ?>
-						<?php $this->Thumbs->banner_thumbnail($this->request->data, 300); ?>
+						Imagen actual: <?php echo $banner['Banner']['pic']; ?>
+						<?php $this->Thumbs->banner_thumbnail($banner, 300); ?>
 					</p>
 					<p></p>
 				</div>
 			</div>
 		<?php
 		}
-
-		/*
-		echo $this->Form->input('adsense_code', array(
-			'label' => array('text' => 'Código AdSense', 'class' => 'control-label my-label col-lg-2'),
-			'class' => 'form-control',
-			'between' => '<div class="col-lg-4">',
-			'before' => '<div class="form-group banner-adsense" style="display: none;">',
-			//'default' => $this->request->data['Banner']['adsense_code'],
-		));
-		echo $this->Form->input('pic', array(
-			'label' => array('text' => 'Imagen', 'class' => 'control-label my-label col-lg-2'),
-			'type'  => 'file',
-			'class' => 'form-control',
-			'between' => '<div class="col-lg-4">',
-			'before' => '<div class="form-group banner-image">',
-		));
-		*/
 		echo $this->Form->input('start_date', array(
 			'label' => array('text' => 'Fecha de Inicio', 'class' => 'control-label my-label col-lg-2'),
 			'type' => 'text',
-			//'default' => $this->request->data['Banner']['start_date'],
+			'default' => $banner['Banner']['start_date'],
 		));
 		echo $this->Form->input('end_date', array(
 			'label' => array('text' => 'Fecha de Expiración', 'class' => 'control-label my-label col-lg-2'),
 			'type' => 'text',
-			//'default' => $this->request->data['Banner']['end_date'],
+			'default' => $banner['Banner']['end_date'],
 		));
 		echo $this->Form->input('banner_size_id', array(
 			'label' => array('text' => 'Tipo de Banner', 'class' => 'control-label my-label col-lg-2'),
 			'class' => 'form-control',
 			'between' => '<div class="col-lg-2">',
 			'empty' => array('' => '-- Elige el Tipo de Banner --'),
-			//'default' => $this->request->data['Banner']['banner_size_id'],
+			'default' => $banner['Banner']['banner_size_id'],
 		));
 		?>
 	</fieldset>
