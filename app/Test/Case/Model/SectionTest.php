@@ -29,6 +29,7 @@ class SectionTest extends CakeTestCase {
 	public function test_addSection() {
 		$section['Section']['parent_id'] = 0;
 		$section['Section']['name']      = 'Section 4';
+		$section['Section']['status']    = 1;
 
 		$this->Section->save($section);
 
@@ -40,6 +41,7 @@ class SectionTest extends CakeTestCase {
 	public function test_getChildren() {
 		$section['Section']['parent_id'] = 2;
 		$section['Section']['name']      = 'Section 4';
+		$section['Section']['status']    = 1;
 
 		$this->Section->save($section);
 

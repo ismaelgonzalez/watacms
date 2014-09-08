@@ -20,7 +20,7 @@ if (sizeof($sections) < 1) {
 				<tr>
 					<td><?php echo h($banner['Section']['id']); ?>&nbsp;</td>
 					<td><?php echo h($banner['Section']['name']); ?>&nbsp;</td>
-					<td><?php echo h($banner['Section']['parent_id']); ?>&nbsp;</td>
+					<td><?php echo $this->element('get_section_parent_name', array('get_parent_id' => true, 'section_id' => $banner['Section']['parent_id'])); ?>&nbsp;</td>
 					<td class="actions">
 						<a href="/admin/sections/edit/<?php echo $banner['Section']['id']; ?>"><i class="fa fa-fw fa-edit" data-toggle="tooltip" title="Editar Sección"></i></a> |
 						<i class="fa fa-fw fa-times-circle text-danger" onclick="borrar(<?php echo $banner['Section']['id']; ?>)" data-toggle="tooltip" title="Desactivar Sección"></i>

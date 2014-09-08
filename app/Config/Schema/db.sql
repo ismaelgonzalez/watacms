@@ -58,3 +58,4 @@ CREATE TABLE `sections` (
   `rght` INTEGER(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
+ALTER TABLE sections ADD status TINYINT(4) DEFAULT 1;

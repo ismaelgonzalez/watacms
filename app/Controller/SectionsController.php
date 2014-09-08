@@ -34,7 +34,10 @@ class SectionsController extends AppController {
 		$this->Section->recursive = 0;
 		$this->Paginator->settings= array(
 			'order' => array(
-				'Section.id' => 'DESC',
+				'Section.lft' => 'ASC',
+			),
+			'conditions' => array(
+				'Section.status' => 1,
 			),
 		);
 		$this->set('sections', $this->Paginator->paginate());
@@ -107,6 +110,7 @@ class SectionsController extends AppController {
 		} else {
 			$options = array('conditions' => array('Section.' . $this->Section->primaryKey => $id));
 			$this->request->data = $this->Section->find('first', $options);
+			$this->set('section', $this->request->data);
 		}
 	}
 
@@ -118,16 +122,55 @@ class SectionsController extends AppController {
  * @return void
  */
 	public function admin_delete($id = null) {
-		$this->Section->id = $id;
-		if (!$this->Section->exists()) {
-			throw new NotFoundException(__('Invalid section'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Section->delete()) {
-			$this->Session->setFlash('Se elimin&oacute; la Sección!', 'default', array('class'=>'alert alert-success'));
+		$this->autoRender = false;
+
+		$section = $this->Section->find('first', array(
+			'conditions' => array(
+				'Section.id' => $id
+			),
+			'fields' => array(
+				'Section.id',
+				'Section.name',
+				'Section.status',
+			)
+		));
+
+		if ($section) {
+			$section['Section']['status'] = 0;
+			if ($this->Section->save($section) ) {
+				$this->Section->updateAll(
+					array('Section.status' => 0),
+					array('Section.parent_id' => $id)
+				);
+				$this->Session->setFlash('Se desactiv&oacute; la Sección con exito!', 'default', array('class'=>'alert alert-success'));
+
+				return $this->redirect('/admin/sections/index');
+			} else {
+				$this->Session->setFlash('No se borro la Sección :(', 'default', array('class'=>'alert alert-danger'));
+
+				return $this->redirect('/admin/sections/index');
+			}
+
 		} else {
-			$this->Session->setFlash('No se pudo eliminar la Sección :S', 'default', array('class'=>'alert alert-danger'));
+			$this->Session->setFlash('No existe Sección con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/admin/sections/index');
 		}
-		return $this->redirect(array('action' => 'index'));
+	}
+
+	/*
+	 * This function returns a sections name by it's parent_id
+	 * @param int $id
+	 * @returns string $name
+	 */
+	public function getNameById($id) {
+		$this->autoRender = false;
+		$section = $this->Section->findById($id);
+
+		if ($section) {
+			return $section['Section']['name'];
+		} else {
+			return false;
+		}
 	}
 }

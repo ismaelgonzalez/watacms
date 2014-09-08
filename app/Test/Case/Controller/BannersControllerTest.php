@@ -43,11 +43,11 @@ class BannersControllerTest extends ControllerTestCase {
 			'Banner' => array(
 				'name' => 'banner 3',
 				'link' => 'http://www.link.com',
-				'pic' => 'banner3.gif',
+				'pic' => '',
 				'start_date' => '2014-09-02',
 				'end_date' => '2014-09-22',
-				'is_adsense' => 0,
-				'adsense_code' => '',
+				'is_adsense' => 1,
+				'adsense_code' => 'This is the adsense code',
 				'banner_size_id' => 1,
 				'status' => 0
 			)
@@ -68,11 +68,11 @@ class BannersControllerTest extends ControllerTestCase {
 			'Banner' => array(
 				'name' => 'banner 3',
 				'link' => 'http://www.link.com',
-				'pic' => 'banner3.gif',
+				'pic' => '',
 				'start_date' => '2014-09-02',
 				'end_date' => '2014-09-22',
-				'is_adsense' => 0,
-				'adsense_code' => '',
+				'is_adsense' => 1,
+				'adsense_code' => 'This is the adsense code',
 				'status' => 1,
 				'banner_size_id' => 2,
 			)

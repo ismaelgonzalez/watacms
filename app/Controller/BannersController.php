@@ -152,7 +152,7 @@ class BannersController extends AppController {
 
 				return $this->redirect('/admin/banners/index');
 			} else {
-				$this->Session->setFlash('WTF No se borro el Banner :(', 'default', array('class'=>'alert alert-danger'));
+				$this->Session->setFlash('No se borro el Banner :(', 'default', array('class'=>'alert alert-danger'));
 
 				return $this->redirect('/admin/banners/index');
 			}
