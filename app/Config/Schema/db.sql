@@ -48,3 +48,13 @@ CREATE TABLE `banner_sizes` (
 
 ALTER TABLE `banners` ADD CONSTRAINT `banner_sizes_fk1` FOREIGN KEY (`banner_size_id`) REFERENCES banner_sizes(`id`);
 INSERT INTO banner_sizes (size) VALUES ('300x250'),('728x90'),('320x50');
+
+### sections
+CREATE TABLE `sections` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT 0,
+  `name` varchar(100) DEFAULT NULL,
+  `lft` INTEGER(10) DEFAULT NULL,
+  `rght` INTEGER(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);

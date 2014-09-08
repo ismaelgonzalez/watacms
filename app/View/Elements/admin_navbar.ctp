@@ -40,8 +40,8 @@
 			<li>
 				<a href="#"><i></i>Notas</a>
 			</li>
-			<li>
-				<a href="#"><i></i>Secciones</a>
+			<li <?php if($this->params['controller'] == 'sections') { echo 'class="active"'; } ?>>
+				<a href="/admin/sections"><i class="fa fa-fw fa-list"></i> Secciones</a>
 			</li>
 			<li>
 				<a href="#"><i></i>Tags</a>
