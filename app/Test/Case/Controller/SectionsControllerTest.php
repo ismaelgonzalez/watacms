@@ -47,7 +47,7 @@ class SectionsControllerTest extends ControllerTestCase {
 
 		$this->testAction('/admin/sections/add', array('data' => $section, 'method' => 'post'));
 		$results = $this->headers['Location'];
-		$expected = 'http://localhost/projects/watacms/watacms/app/Console/admin/sections';
+		$expected = 'http://localhost' . ROOT . DS . 'app/Console/admin/sections';
 		$this->assertEquals($expected, $results);
 
 		$result = $this->testAction('/admin/sections/index', array('return' => 'vars'));
