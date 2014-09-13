@@ -58,9 +58,6 @@ class TagsController extends AppController {
 				$this->Session->setFlash('No se pudo guardar al Tag :S', 'default', array('class'=>'alert alert-danger'));
 			}
 		}
-
-		$tagSizes = $this->Tag->TagSize->find('list');
-		$this->set(compact('tagSizes'));
 	}
 
 	/**
@@ -75,6 +72,7 @@ class TagsController extends AppController {
 		$this->set('pageHeader', 'Tags');
 		$this->set('sectionTitle', 'Editar');
 
+		$this->Tag->recursive = -1;
 		$tag = $this->Tag->findById($id);
 		if (empty($tag)) {
 			$this->Session->setFlash('No existe Tag con este ID :(', 'default', array('class'=>'alert alert-danger'));
@@ -110,7 +108,8 @@ class TagsController extends AppController {
 		$tag = $this->Tag->find('first', array(
 			'conditions' => array(
 				'Tag.id' => $id
-			)
+			),
+			'recursive' => -1,
 		));
 
 		$tagged_conditions = array(

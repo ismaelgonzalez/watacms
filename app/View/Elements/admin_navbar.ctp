@@ -43,8 +43,8 @@
 			<li <?php if($this->params['controller'] == 'sections') { echo 'class="active"'; } ?>>
 				<a href="/admin/sections"><i class="fa fa-fw fa-list"></i> Secciones</a>
 			</li>
-			<li>
-				<a href="#"><i></i>Tags</a>
+			<li <?php if($this->params['controller'] == 'tags') { echo 'class="active"'; } ?>>
+				<a href="/admin/tags"><i class="fa fa-fw fa-tags"></i> Tags</a>
 			</li>
 			<li <?php if($this->params['controller'] == 'banners') { echo 'class="active"'; } ?>>
 				<a href="/admin/banners"><i class="fa fa-fw fa-money"></i> Banners</a>

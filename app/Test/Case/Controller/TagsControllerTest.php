@@ -56,10 +56,10 @@ class TagsControllerTest extends ControllerTestCase {
 
 		$result = $this->testAction('/admin/tags/edit/4', array('return' => 'vars', 'method' => 'get'));
 
-		$this->assertCount(2, $result['tag']);
+		$this->assertCount(1, $result['tag']);
 		$this->assertArrayHasKey('Tag', $result['tag']);
 		$this->assertArrayHasKey('tag', $result['tag']['Tag']);
-		$this->assertArrayHasKey('Tagged', $result['tag']);
+		$this->assertArrayNotHasKey('Tagged', $result['tag']);
 	}
 
 /**
@@ -74,7 +74,7 @@ class TagsControllerTest extends ControllerTestCase {
 		$this->testAction('/admin/tags/edit/1', array('return' => 'vars', 'data' =>$tag, 'method' => 'post'));
 
 		$result = $this->testAction('/admin/tags/edit/1', array('return' => 'vars', 'method' => 'get'));
-		$this->assertCount(2, $result['tag']);
+		$this->assertCount(1, $result['tag']);
 		$this->assertEquals('Zoom', $result['tag']['Tag']['tag']);
 	}
 

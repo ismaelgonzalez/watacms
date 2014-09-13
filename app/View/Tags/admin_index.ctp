@@ -1,29 +1,27 @@
-<h3><a href="/admin/sections/add/">Agregar Secciones</a></h3>
+<h3><a href="/admin/tags/add/">Agregar Tags</a></h3>
 <?php
-if (sizeof($sections) < 1) {
-	echo "<h4>Por el momento no tenemos secciones en el sistema.</h4>";
+if (sizeof($tags) < 1) {
+	echo "<h4>Por el momento no tenemos Tags el sistema.</h4>";
 } else {
 	?>
-	<div class="sections index table-responsive">
-		<h2><?php echo __('Sections'); ?></h2>
+	<div class="tags index table-responsive">
+		<h2><?php echo __('Tags'); ?></h2>
 		<table class="table table-striped table-hover">
 			<thead>
 			<tr>
 				<th><?php echo $this->Paginator->sort('id'); ?></th>
-				<th><?php echo $this->Paginator->sort('name', 'Nombre'); ?></th>
-				<th><?php echo $this->Paginator->sort('parent_id', 'Sección Titular'); ?></th>
+				<th><?php echo $this->Paginator->sort('tag'); ?></th>
 				<th class="actions"><?php echo __('Actions'); ?></th>
 			</tr>
 			</thead>
 			<tbody>
-			<?php foreach ($sections as $section): ?>
+			<?php foreach ($tags as $tag): ?>
 				<tr>
-					<td><?php echo h($section['Section']['id']); ?>&nbsp;</td>
-					<td><?php echo h($section['Section']['name']); ?>&nbsp;</td>
-					<td><?php echo $this->element('get_section_parent_name', array('get_parent_id' => true, 'section_id' => $section['Section']['parent_id'])); ?>&nbsp;</td>
+					<td><?php echo h($tag['Tag']['id']); ?>&nbsp;</td>
+					<td><?php echo h($tag['Tag']['tag']); ?>&nbsp;</td>
 					<td class="actions">
-						<a href="/admin/sections/edit/<?php echo $section['Section']['id']; ?>"><i class="fa fa-fw fa-edit" data-toggle="tooltip" title="Editar Sección"></i></a> |
-						<i class="fa fa-fw fa-times-circle text-danger" onclick="borrar(<?php echo $section['Section']['id']; ?>)" data-toggle="tooltip" title="Desactivar Sección"></i>
+						<a href="/admin/tags/edit/<?php echo $tag['Tag']['id']; ?>"><i class="fa fa-fw fa-edit" data-toggle="tooltip" title="Editar Tag"></i></a> |
+						<i class="fa fa-fw fa-times-circle text-danger" onclick="borrar(<?php echo $tag['Tag']['id']; ?>)" data-toggle="tooltip" title="Desactivar Tag"></i>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -40,7 +38,7 @@ if (sizeof($sections) < 1) {
 			?>	</p>
 	</div>
 <?php } ?>
-<div id="deleteSection" class="modal fade">
+<div id="deleteTag" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -48,12 +46,12 @@ if (sizeof($sections) < 1) {
 				<h4 class="modal-title">WataCMS - Admin</h4>
 			</div>
 			<div class="modal-body">
-				<p>Estas Seguro que quieres borrar esta Sección?</p>
+				<p>Estas Seguro que quieres borrar este Tag?</p>
 				<input id="deleteID" value="" type="hidden">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				<button id="confirmDelete" type="button" class="btn btn-danger">Desactivar Sección</button>
+				<button id="confirmDelete" type="button" class="btn btn-danger">Desactivar Tag</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -64,13 +62,13 @@ if (sizeof($sections) < 1) {
 
 		$("#confirmDelete").click(function() {
 			var id = $("#deleteID").val();
-			$("#deleteSection").modal('hide');
-			window.open('/admin/sections/delete/'+id, '_parent');
+			$("#deleteTag").modal('hide');
+			window.open('/admin/tags/delete/'+id, '_parent');
 		});
 	});
 
 	function borrar(post_id) {
 		$("#deleteID").val(post_id);
-		$("#deleteSection").modal('show');
+		$("#deleteTag").modal('show');
 	}
 </script>
