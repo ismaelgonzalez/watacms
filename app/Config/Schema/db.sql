@@ -59,3 +59,18 @@ CREATE TABLE `sections` (
   PRIMARY KEY (`id`)
 );
 ALTER TABLE sections ADD status TINYINT(4) DEFAULT 1;
+
+### Tags
+CREATE TABLE `tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `tagged` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag_id` int(11) DEFAULT NULL,
+  `model` enum('album','post','pic','video') DEFAULT NULL,
+  `model_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
