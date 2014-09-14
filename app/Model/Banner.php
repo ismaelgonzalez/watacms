@@ -27,12 +27,6 @@ class Banner extends AppModel {
 				'required' => true,
 			),
 		),
-		/*'pic' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				'message' => 'La imagen del banner es requerida',
-				'required' => true,
-			),*/
 		'link' => array(
 			'url' => array(
 				'rule' => array('url'),

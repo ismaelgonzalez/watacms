@@ -1,16 +1,16 @@
 <?php
 class TaggableBehavior extends ModelBehavior
 {
-	public function afterSave(Model $Model, $created, $options) {
+	public function afterSave(Model $model, $created, $options = array()) {
 		App::import('Model', 'Tag');
 		App::import('Model', 'Tagged');
 		
 		$obj_tag = new Tag();
 		$obj_tagged = new Tagged();
 
-		if (!empty($Model->data[$Model->alias]['tagged'])) {
+		if (!empty($model->data[$model->alias]['tagged'])) {
 			//create array from tagged string and then do a foreach
-			$arrTags = array_unique(explode(',',$Model->data[$Model->alias]['tagged']));
+			$arrTags = array_unique(explode(',',$model->data[$model->alias]['tagged']));
 			foreach($arrTags as $tag) {
 				//if tag is number then check and see if already tagged, if not add tag
 				$obj_tagged->create();
@@ -20,8 +20,8 @@ class TaggableBehavior extends ModelBehavior
 						array(
 							'conditions' => array(
 								'Tagged.tag_id' => $tag,
-								'Tagged.model' => $Model->alias,
-								'Tagged.model_id' => $Model->getInsertId()
+								'Tagged.model' => $model->alias,
+								'Tagged.model_id' => $model->getInsertId()
 							)
 						)
 					);
@@ -30,8 +30,8 @@ class TaggableBehavior extends ModelBehavior
 						$tagged = array(
 							'Tagged' => array(
 								'tag_id' => $tag,
-								'model' => $Model->alias,
-								'model_id' => $Model->getInsertId()
+								'model' => $model->alias,
+								'model_id' => $model->getInsertId()
 							)
 						);
 
@@ -49,8 +49,8 @@ class TaggableBehavior extends ModelBehavior
 					$tagged = array(
 						'Tagged' => array(
 							'tag_id' => $obj_tag->getInsertId(),
-							'model' => $Model->alias,
-							'model_id' => $Model->getInsertId()
+							'model' => $model->alias,
+							'model_id' => $model->getInsertId()
 						)
 					);
 

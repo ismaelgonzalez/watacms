@@ -52,8 +52,8 @@
 			<li>
 				<a href="#"><i></i>Galerias</a>
 			</li>
-			<li>
-				<a href="#"><i></i>Fotos</a>
+			<li <?php if($this->params['controller'] == 'pics') { echo 'class="active"'; } ?>>
+				<a href="/admin/pics"><i class="fa fa-fw fa-camera"></i> Imagenes</a>
 			</li>
 			<li>
 				<a href="#"><i></i>Videos</a>

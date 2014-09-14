@@ -21,4 +21,14 @@ class ThumbsHelper extends AppHelper {
 
 		echo $div;
 	}
+
+	public function pic_thumbnail($pic, $thumb_size){
+		$ext = pathinfo($pic['Pic']['pic'], PATHINFO_EXTENSION);
+
+		$div = "<div class='thumbnail pull-right'>
+			<img src='/files/pics/".$pic['Pic']['pic']."' alt='".$pic['Pic']['title']."' width='".$thumb_size."' class='img-thumbnail'>
+			</div>";
+
+		echo $div;
+	}
 }

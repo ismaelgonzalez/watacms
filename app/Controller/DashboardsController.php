@@ -17,6 +17,8 @@ class DashboardsController extends AppController {
 
 	public $helpers = array('Paginator', 'Js', 'Thumbs');
 
+	public $components = array('Paginator', 'Session');
+
 	public function index() {
 		$this->layout = 'admin';
 		$this->set('pageHeader', 'Dashboard');
