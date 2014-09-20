@@ -1,0 +1,10 @@
+.tag{
+	margin-left: 5px;
+}
+
+.tag a{
+	margin-left: 3px;
+	color: #ffffff;
+	text-decoration: none;
+	cursor: pointer;
+}

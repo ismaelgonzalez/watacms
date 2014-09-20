@@ -55,6 +55,7 @@ class TaggableBehavior extends ModelBehavior
 					);
 
 					$obj_tagged->save($tagged);
+					error_log(':::::::::::::::::::::::::TAGS::: '.$tag.' '.$model->getInsertID() . ' '. $obj_tag->getInsertId() . ' ' . $obj_tagged->getInsertID());
 				}
 			}
 		}

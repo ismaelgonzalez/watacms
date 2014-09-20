@@ -92,7 +92,13 @@ class TagsControllerTest extends ControllerTestCase {
 	}
 
 	public function testAutocomplete() {
+		$result = $this->_testAction('/tags/autocomplete/f', array('method' => 'get'));
+		$tags = json_decode($result);
 
+		$this->assertCount(2, $tags);
+		$this->assertObjectHasAttribute('value', $tags[0]);
+		$this->assertObjectHasAttribute('label', $tags[0]);
+		$this->assertObjectHasAttribute('id', $tags[0]);
 	}
 
 	public function testGetModelByTag() {

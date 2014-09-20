@@ -21,4 +21,10 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+	function lastQuery(){
+		$dbo = $this->getDatasource();
+		$logs = $dbo->_queriesLog;
+		// return the first element of the last array (i.e. the last query)
+		return current(end($logs));
+	}
 }

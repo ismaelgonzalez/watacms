@@ -135,4 +135,30 @@ class TagsController extends AppController {
 			return $this->redirect('/admin/tags/index');
 		}
 	}
+
+	public function autocomplete() {
+		$this->autoRender = false;
+		$this->layout = "ajax";
+		$tag = $_GET['term'];
+		$tags = $this->Tag->find('all', array(
+			'recursive' => -1,
+			'conditions' => array('Tag.tag LIKE' => $tag.'%')
+		));
+
+		$tag_return = array();
+
+		foreach($tags as $t){
+			$tag_return[] = array(
+				'value' => $t['Tag']['tag'],
+				'label' => $t['Tag']['tag'],
+				'id' => $t['Tag']['id']
+			);
+		}
+
+		if ($this->request->is('ajax') ) {
+			echo json_encode($tag_return);
+		} else {
+			return json_encode($tag_return);
+		}
+	}
 }
