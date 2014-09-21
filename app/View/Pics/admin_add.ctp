@@ -103,7 +103,7 @@
 			if (e.which == 13) {
 				e.preventDefault();
 				var new_tag = $(this).val();
-				var label = "<span id='tag"+new_tag+"' class='badge tag'>"+new_tag+"<a onclick='deltag("+new_tag+")'>x</a></span>";
+				var label = "<span id='tag"+new_tag+"' class='badge tag'>"+new_tag+"<a onclick='deltag(\""+new_tag+"\")'>x</a></span>";
 				$(this).parent().append(label);
 				$("[id*='Tagged']").val(function(e, val) {
 					return val + (val ? ',' : '') + new_tag
@@ -115,9 +115,6 @@
 	});
 
 	function deltag(tag_id){
-		console.log(tag_id);
-		console.log("#tag"+tag_id);
-		return;
 		$("#tag"+tag_id).remove();
 		var arrTags = $("[id*='Tagged']").val().split(',');
 

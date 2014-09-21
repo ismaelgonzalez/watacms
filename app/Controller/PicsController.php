@@ -67,6 +67,14 @@ class PicsController extends AppController {
 		$this->set('sections', $sections);
 		$this->set('pic', $pic);
 
+		$tags = $this->Tagged->find('all', array(
+			'conditions' => array(
+				'model' => 'pic',
+				'model_id' => $id
+			),
+		));
+		$this->set('tags', $tags);
+
 		if (!empty($this->data)) {
 			if (empty($this->data['Pic']['pic']['name'])) {
 				unset($this->request->data['Pic']['pic']);

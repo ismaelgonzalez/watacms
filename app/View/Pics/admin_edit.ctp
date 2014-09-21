@@ -88,6 +88,17 @@
 			'empty' => array('' => '-- Seleccionar Sección --'),
 			'default' => $pic['Pic']['section_id'],
 		));
+		echo $this->Form->input('tags', array(
+			'class' => 'tagsinput',
+			'label' => array('text' => 'Agregar Tags', 'class' => 'control-label my-label col-lg-2'),
+			'between' => '<div class="col-lg-8">',
+			'type' => 'text',
+			//'default' => '',
+		));
+		$tag_labels = $this->Tags->getTags($tags);
+		echo "<div class='form-group'><span class='col-lg-2' style='text-align: right'><strong>Tags actuales:</strong></span><div class='col-lg-8'>".$tag_labels."</div></div>";
+		$tagged = $this->Tags->getTagsIds($tags);
+		echo $this->Form->input('tagged', array('type' => 'hidden', 'default' => $tagged));
 		?>
 		<div class="form-group">
 			<label class="control-label my-label col-lg-2" style="padding-top: 0">Mostrar como Publicado</label>
@@ -109,5 +120,43 @@
 <script type="text/javascript">
 	$(function () {
 		$('#PicPublishedDate').datepicker({dateFormat:'dd-mm-yy'});
+		$("[id*='Tags']").autocomplete({source: '/tags/autocomplete/', minlength:2, select: function (event, ui){
+			if (ui.item != null) {
+				var label = "<span id='tag"+ui.item.id+"' class='badge tag'>"+ui.item.value+"<a onclick='deltag("+ui.item.id+")'>x</a></span>";
+				$(this).parent().append(label);
+				$("[id*='Tagged']").val(function(e, val) {
+					return val + (val ? ',' : '') + ui.item.id
+				});
+				$(this).val("");
+				return false;
+			}
+		}});
+		$("[id*='Tags']").keypress(function(e){
+			if (e.which == 13) {
+				e.preventDefault();
+				var new_tag = $(this).val();
+				var label = "<span id='tag"+new_tag+"' class='badge tag'>"+new_tag+"<a onclick='deltag(\""+new_tag+"\")'>x</a></span>";
+				$(this).parent().append(label);
+				$("[id*='Tagged']").val(function(e, val) {
+					return val + (val ? ',' : '') + new_tag
+				});
+				this.value = "";
+				return false;
+			}
+		});
 	});
+
+	function deltag(tag_id){
+		$("#tag"+tag_id).remove();
+		var arrTags = $("[id*='Tagged']").val().split(',');
+
+		for(i=0; i< arrTags.length; i++){
+			console.log(arrTags[i]);
+			if (arrTags[i] == tag_id){
+				arrTags.splice(i, 1);
+			}
+		}
+
+		$("[id*='Tagged']").val(arrTags.toString());
+	}
 </script>

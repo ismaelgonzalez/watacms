@@ -25,8 +25,10 @@ class ThumbsHelper extends AppHelper {
 	public function pic_thumbnail($pic, $thumb_size){
 		$ext = pathinfo($pic['Pic']['pic'], PATHINFO_EXTENSION);
 
-		$div = "<div class='thumbnail pull-right'>
-			<img src='/files/pics/".$pic['Pic']['pic']."' alt='".$pic['Pic']['title']."' width='".$thumb_size."' class='img-thumbnail'>
+		$div = "<div class='pull-right'>
+			<a class='thumbnail' href='/admin/pics/edit/".$pic['Pic']['id']."'>
+				<img src='/files/pics/".$pic['Pic']['pic']."' alt='".$pic['Pic']['title']."' width='".$thumb_size."'>
+			</a>
 			</div>";
 
 		echo $div;
