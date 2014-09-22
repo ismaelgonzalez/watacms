@@ -88,3 +88,25 @@ CREATE TABLE `pics` (
   `status` TINYINT(4) DEFAULT 1,
   PRIMARY KEY (`id`)
 );
+
+### polls
+CREATE TABLE `polls` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` varchar(150) DEFAULT NULL,
+  `blurb` varchar(250) DEFAULT NULL,
+  `published_date` DATE DEFAULT NULL,
+  `published_time` TIME DEFAULT NULL,
+  `status` TINYINT(4) DEFAULT 1,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `poll_answers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `poll_id` int(11) DEFAULT NULL,
+  `answer` varchar(150) DEFAULT NULL,
+  `num_votes` int(11) DEFAULT 0,
+  `color` varchar(50) DEFAULT NULL,
+  `status` TINYINT(4) DEFAULT 1,
+  PRIMARY KEY (`id`)
+);
+
