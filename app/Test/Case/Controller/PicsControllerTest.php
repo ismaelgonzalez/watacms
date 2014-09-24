@@ -31,7 +31,7 @@ class PicsControllerTest extends ControllerTestCase {
 	public function testAdminIndex() {
 		$pic = array(
 			'Pic' => array(
-				'pic' => 'image4.jpg',
+				'pic' => '',
 				'title' => 'Title 4',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'section_id' => 1,
@@ -56,7 +56,7 @@ class PicsControllerTest extends ControllerTestCase {
 	public function testAdminAdd() {
 		$pic = array(
 			'Pic' => array(
-				'pic' => 'image4.jpg',
+				'pic' => '',
 				'title' => 'Title 4',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'section_id' => 1,

@@ -58,8 +58,8 @@
 			<li>
 				<a href="#"><i></i>Videos</a>
 			</li>
-			<li>
-				<a href="#"><i></i>Encuestas</a>
+			<li <?php if($this->params['controller'] == 'polls') { echo 'class="active"'; } ?>>
+				<a href="/admin/polls"><i class="fa fa-fw fa-list-ol"></i> Encuestas</a>
 			</li>
 			<li <?php if($this->params['controller'] == 'users') { echo 'class="active"'; } ?>>
 				<a href="/admin/users/"><i class="fa fa-fw fa-users"></i> Editores</a>
