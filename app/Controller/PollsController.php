@@ -16,7 +16,20 @@ class PollsController extends AppController {
 	public $layout     = 'admin';
 
 	public function admin_index() {
+		$this->Poll->recursive = 0;
+		$this->Paginator->settings= array(
+			'order' => array(
+				'Poll.id' => 'DESC',
+			),
+			'conditions' => array(
+				'Poll.status' => 1,
+			),
+		);
+		$this->set('polls', $this->Paginator->paginate());
 
+		$this->set('title_for_layout', 'Administrar Encuestas');
+		$this->set('pageHeader', 'Encuestas');
+		$this->set('sectionTitle', 'Lista de Encuestas');
 	}
 
 	public function admin_add() {

@@ -28,15 +28,36 @@ class PollTest extends CakeTestCase {
 	}
 
 	public function testCreate() {
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		$poll = array(
+			'question' => 'Best Girl?',
+			'blurb' => 'Lorem ipsum dolor sit amet',
+			'published_date' => '2014-09-23',
+			'published_time' => '18:47:10',
+			'status' => 1
+		);
+
+		$this->Poll->save($poll);
+
+		$polls = $this->Poll->find('all');
+		$this->assertCount(4, $polls);
 	}
 
 	public function testFind() {
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		$poll = $this->Poll->findById(2);
+
+		$this->assertArrayHasKey('Poll', $poll);
+		$this->assertArrayHasKey('PollAnswer', $poll);
+		$this->assertEquals('Best Seinfeld character?', $poll['Poll']['question']);
 	}
 
 	public function testGetResults() {
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		$poll = $this->Poll->findById(2);
+
+		$this->assertArrayHasKey('Poll', $poll);
+		$this->assertArrayHasKey('PollAnswer', $poll);
+		$this->assertCount(3, $poll['PollAnswer']);
+		$result = round(($poll['PollAnswer'][0]['num_votes']/3)*100);
+		$this->assertEquals(33, $result);
 	}
 /**
  * tearDown method

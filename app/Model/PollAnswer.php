@@ -50,4 +50,16 @@ class PollAnswer extends AppModel {
 			'order' => ''
 		)
 	);
+
+	/*
+	 * This function adds a vote to a poll answer
+	 * @params array $poll_answer record
+	 * @returns nothing
+	 */
+	public function addVote($poll_answer) {
+		$poll_answer['PollAnswer']['num_votes']++;
+		$this->save($poll_answer);
+
+		return $poll_answer['PollAnswer']['num_votes'];
+	}
 }

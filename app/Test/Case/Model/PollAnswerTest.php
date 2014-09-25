@@ -1,4 +1,5 @@
 <?php
+App::uses('Poll', 'Model');
 App::uses('PollAnswer', 'Model');
 
 /**
@@ -25,18 +26,44 @@ class PollAnswerTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->PollAnswer = ClassRegistry::init('PollAnswer');
+		$this->Poll       = ClassRegistry::init('Poll');
 	}
 
 	public function testCreate() {
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		$poll_answer = array(
+			'poll_id' => 1,
+			'answer' => 'Lorem Ipsum',
+			'color' => 'Lorem ipsum dolor sit amet',
+			'num_votes' => 0,
+			'status' => 1
+		);
+
+		$this->PollAnswer->save($poll_answer);
+
+		$poll_answers = $this->PollAnswer->find('all');
+
+		$this->assertCount(6, $poll_answers);
 	}
 
 	public function testFind() {
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		$poll_answer = $this->PollAnswer->findById(2);
+
+		$this->assertCount(2, $poll_answer);
+		$this->assertArrayHasKey('Poll', $poll_answer);
+		$this->assertArrayHasKey('PollAnswer', $poll_answer);
+		$this->assertEquals('George', $poll_answer['PollAnswer']['answer']);
+
 	}
 
 	public function testAddVotes() {
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		$this->PollAnswer->recursive = -1;
+		$poll_answer = $this->PollAnswer->findById(1);
+		$num_votes = $poll_answer['PollAnswer']['num_votes'];
+		$this->assertEquals(1, $num_votes);
+
+		$pollAnswer = new PollAnswer();
+		$poll_answer = $pollAnswer->addVote($poll_answer);
+		$this->assertEquals(2, $poll_answer);
 	}
 /**
  * tearDown method
