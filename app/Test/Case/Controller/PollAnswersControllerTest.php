@@ -17,6 +17,11 @@ class PollAnswersControllerTest extends ControllerTestCase {
 		'app.poll_answer'
 	);
 
+	public function setUp()
+	{
+		parent::setUp();
+		$this->PollAnswer = ClassRegistry::init('PollAnswer');
+	}
 /**
  * testAdminEdit method
  *
@@ -35,10 +40,9 @@ class PollAnswersControllerTest extends ControllerTestCase {
 		);
 
 		$result = $this->testAction('/admin/poll_answers/edit/5', array('return' => 'vars', 'method' => 'post', 'data' => $poll_answer));
-		debug($result);
-		//$this->assertArrayHasKey('Pic', $result['pic']);
-		//$this->assertEquals('New Title!!', $result['pic']['Pic']['title']);
-		$this->markTestIncomplete('testAdminEdit not implemented.');
+
+		$pa = $this->PollAnswer->findById(5);
+		$this->assertEquals('Green Lantern', $pa['PollAnswer']['answer']);
 	}
 
 /**
@@ -46,8 +50,13 @@ class PollAnswersControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testAdminDelete() {
-		$this->markTestIncomplete('testAdminDelete not implemented.');
+	public function testAdminDelete()
+	{
+		$result = $this->testAction('/admin/poll_answers/delete/5', array('return' => 'vars', 'method' => 'post'));
+
+		$this->PollAnswer->recursive = -1;
+		$pa = $this->PollAnswer->findByPollId(3);
+		$this->assertCount(1, $pa);
 	}
 
 }
