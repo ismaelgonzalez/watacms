@@ -122,4 +122,16 @@ class PollsControllerTest extends ControllerTestCase {
 		$this->assertCount(2, $result['polls']);
 	}
 
+	/**
+	 * testShow method
+	 *
+	 * @return void
+	 */
+	public function testShow() {
+		$result = $this->_testAction('/polls/show/3', array('return' => 'vars'));
+
+		$this->assertCount(1, $result['Poll']);
+		$this->assertCount(2, $result['PollAnswer']);
+	}
+
 }

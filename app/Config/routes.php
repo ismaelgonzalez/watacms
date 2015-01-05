@@ -29,6 +29,16 @@
 	Router::connect('/logout/*', array('controller' => 'users', 'action' => 'logout'));
 	Router::connect('/admin/users/logout/*', array('controller' => 'users', 'action' => 'logout'));
 
+	//poll routes
+	Router::connect('/poll/vote/:poll_id/:id',
+		array(
+		'controller' => 'poll_answers',
+		'action' => 'addVote'
+		),
+		array(
+			'pass' => array('poll_id', 'id')
+		)
+	);
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

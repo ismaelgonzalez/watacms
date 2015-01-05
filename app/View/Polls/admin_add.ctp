@@ -65,27 +65,28 @@
 	?>
 </div>
 
-
 <script type="text/javascript">
 	$(function () {
 		$('#PollPublishedDate').datepicker({dateFormat: 'dd-mm-yy'});
 
 		$("#addAnswer").click(function(){
-			$(this).parent().before('<p><label for="PollAnswerAnswer">Respuesta</label><div class="input added"><input name="answer[]" type="text" id="PollAnswerAnswer"></div></p>');
-
-			/*$(this).parent().before('<div class="clearfix"></div>' +
-			'<div class="js-answer-bar-colors">' +
-			'<p><label for="PollAnswerAnswer">Respuesta</label><div class="input added"><input name="answer[]" type="text" id="PollAnswerAnswer"></div></p>' +
-			'<div class="clearfix"></div>' +
-			'<div class="row pull-left col-md-4">' +
-			'Elige color de la respuesta:' +
-			'<span><img src="/img/red.png" alt="red"> <input type="radio" name="color" value="red.png"></span>' +
-			'<span><img src="/img/yellow.png" alt="red"> <input type="radio" name="color" value="yellow.png"></span>' +
-			'<span><img src="/img/green.png" alt="red"> <input type="radio" name="color" value="green.png"></span>' +
-			'<span><img src="/img/blue.png" alt="red"> <input type="radio" name="color" value="blue.png"></span>' +
+			$(this).parent().before('<div class="newAnswer col-md-12 form-group">' +
+			'<div class="col-md-3">' +
+			'<label for="PollAnswerAnswer">Respuesta</label>' +
+			'<input name="answer[]" type="text" id="PollAnswerAnswer" class="form-control">' +
+			'</div>' +
+			'<div class="col-md-3">' +
+			'<label for="PollAnswerColor">Color</label>' +
+			'<select id="PollAnswerColor" name="answerColor[]" class="form-control">' +
+			'<option>--Elige un Color--</option>' +
+			'<option value="primary">Azul</option>' +
+			'<option value="info">Azul Claro</option>' +
+			'<option value="success">Verde</option>' +
+			'<option value="warning">Amarillo</option>' +
+			'<option value="danger">Rojo</option>' +
+			'</select>' +
 			'</div>' +
 			'</div>');
-			//$(this).parent().before($('.js-answer-bar-colors').clone());*/
 		});
 	});
 </script>

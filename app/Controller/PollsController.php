@@ -15,6 +15,12 @@ class PollsController extends AppController {
 
 	public $layout     = 'admin';
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+
+		$this->Auth->allow('show');
+	}
+
 	public function admin_index() {
 		$this->Poll->recursive = 0;
 		$this->Paginator->settings= array(
@@ -40,14 +46,13 @@ class PollsController extends AppController {
 		if ($this->request->is('post')) {
 			debug($this->request->data);
 			exit();
-			/*$this->Poll->create();
+			$this->Poll->create();
 			if ($this->Poll->saveAssociated($this->request->data)) {
 				$this->Poll->setFlash('Se agreg&oacute; la nueva Encuesta!', 'default', array('class'=>'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash('No se pudo guardar la Encuesta :S', 'default', array('class'=>'alert alert-danger'));
 			}
-			*/
 		}
 	}
 
@@ -56,6 +61,10 @@ class PollsController extends AppController {
 	}
 
 	public function admin_delete($id = null) {
+
+	}
+
+	public function show($id) {
 
 	}
 }

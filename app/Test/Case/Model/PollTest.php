@@ -59,6 +59,14 @@ class PollTest extends CakeTestCase {
 		$result = round(($poll['PollAnswer'][0]['num_votes']/3)*100);
 		$this->assertEquals(33, $result);
 	}
+
+	public function testDelete() {
+		$this->Poll->delete(1);
+
+		$polls = $this->Poll->find('all');
+
+		$this->assertCount(2, $polls);
+	}
 /**
  * tearDown method
  *

@@ -59,4 +59,15 @@ class PollAnswersControllerTest extends ControllerTestCase {
 		$this->assertCount(1, $pa);
 	}
 
+	/**
+	 * testAdminAddVote method
+	 *
+	 * @return void
+	 */
+	public function testAdminAddVote() {
+		$result = $this->_testAction('/poll/vote/2/2', array('return' => 'vars', 'method' => 'post'));
+
+		$poll_answer = $this->PollAnswer->findByPollIdAndId(2,2);
+		$this->assertEquals(2, $poll_answer['PollAnswer']['num_votes']);
+	}
 }

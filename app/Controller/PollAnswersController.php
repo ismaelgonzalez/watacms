@@ -49,4 +49,10 @@ class PollAnswersController extends AppController {
 			//return /admin/polls/
 		//else, send error message
 	}
+
+	public function addVote($poll_id, $id) {
+		$this->autoRender = false;
+		debug($poll_id);
+		debug($id);
+	}
 }

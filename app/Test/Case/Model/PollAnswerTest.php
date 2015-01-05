@@ -65,6 +65,14 @@ class PollAnswerTest extends CakeTestCase {
 		$poll_answer = $pollAnswer->addVote($poll_answer);
 		$this->assertEquals(2, $poll_answer);
 	}
+
+	public function testDelete() {
+		$this->PollAnswer->delete(1);
+
+		$poll_answers = $this->PollAnswer->find('all');
+
+		$this->assertCount(4, $poll_answers);
+	}
 /**
  * tearDown method
  *
