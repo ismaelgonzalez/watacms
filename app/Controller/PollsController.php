@@ -44,11 +44,19 @@ class PollsController extends AppController {
 		$this->set('sectionTitle', 'Agregar');
 
 		if ($this->request->is('post')) {
-			debug($this->request->data);
-			exit();
 			$this->Poll->create();
+
+			foreach ($this->request->data['answer'] as $key => $value) {
+				$color = !empty( $this->request->data['answerColor'][$key] ) ? $this->request->data['answerColor'][$key] : "primary" ;
+
+				$this->request->data['PollAnswer'][] = array(
+					'answer' => $value,
+					'color'  => $color
+				);
+			}
+
 			if ($this->Poll->saveAssociated($this->request->data)) {
-				$this->Poll->setFlash('Se agreg&oacute; la nueva Encuesta!', 'default', array('class'=>'alert alert-success'));
+				$this->Session->setFlash('Se agreg&oacute; la nueva Encuesta!', 'default', array('class'=>'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash('No se pudo guardar la Encuesta :S', 'default', array('class'=>'alert alert-danger'));
@@ -57,6 +65,43 @@ class PollsController extends AppController {
 	}
 
 	public function admin_edit($id = null) {
+		$this->set('title_for_layout', 'Administrar Encuestas');
+		$this->set('pageHeader', 'Encuestas');
+		$this->set('sectionTitle', 'Editar');
+
+		//search for poll by id
+		//if poll exists
+			//if is post
+				//save, show message and redirect to index
+		// if not show message redirect to index
+
+		$poll = $this->Poll->findById($id);
+
+		if ( !empty($poll) ) {
+			if ($this->request->is('post')) {
+				foreach ($this->request->data['answerId'] as $key => $value) {
+					$this->request->data['PollAnswer'][] = array(
+						'id' => $value,
+						'answer' => $this->request->data['answer'][$key],
+						'color' => $this->request->data['answerColor'][$key],
+						'num_votes' => $this->request->data['answerNumVotes'][$key]
+					);
+				}
+
+				if ($this->Poll->saveAssociated($this->request->data)) {
+					$this->Session->setFlash('Se agreg&oacute; la nueva Encuesta!', 'default', array('class' => 'alert alert-success'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash('No se pudo guardar la Encuesta :S', 'default', array('class' => 'alert alert-danger'));
+				}
+			}
+		} else {
+			$this->Session->setFlash('No existe encuesta con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/admin/polls/index');
+		}
+
+		$this->set('poll', $poll);
 
 	}
 

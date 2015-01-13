@@ -28,8 +28,8 @@ if (sizeof($polls) < 1) {
 					<td><?php echo date('h:i A', strtotime($poll['Poll']['published_time'])); ?>&nbsp;</td>
 					<td><?php echo $this->Status->getStatus($poll['Poll']['status']); ?>&nbsp;</td>
 					<td class="actions">
-						<a href="/admin/polls/edit/<?php echo $poll['Poll']['id']; ?>"><i class="fa fa-fw fa-edit" data-toggle="tooltip" title="Editar Imagen"></i></a> |
-						<i class="fa fa-fw fa-times-circle text-danger" onclick="borrar(<?php echo $poll['Poll']['id']; ?>)" data-toggle="tooltip" title="Desactivar Imagen"></i>
+						<a href="/admin/polls/edit/<?php echo $poll['Poll']['id']; ?>"><i class="fa fa-fw fa-edit" data-toggle="tooltip" title="Editar Encuesta"></i></a> |
+						<i class="fa fa-fw fa-times-circle text-danger" onclick="borrar(<?php echo $poll['Poll']['id']; ?>)" data-toggle="tooltip" title="Desactivar Encuesta"></i>
 					</td>
 				</tr>
 			<?php endforeach; ?>

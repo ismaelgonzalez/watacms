@@ -78,7 +78,7 @@
 			'<div class="col-md-3">' +
 			'<label for="PollAnswerColor">Color</label>' +
 			'<select id="PollAnswerColor" name="answerColor[]" class="form-control">' +
-			'<option>--Elige un Color--</option>' +
+			'<option value="">--Elige un Color--</option>' +
 			'<option value="primary">Azul</option>' +
 			'<option value="info">Azul Claro</option>' +
 			'<option value="success">Verde</option>' +
