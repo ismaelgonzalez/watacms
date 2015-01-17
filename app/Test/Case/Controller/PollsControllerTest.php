@@ -32,16 +32,23 @@ class PollsControllerTest extends ControllerTestCase {
 	public function testAdminIndex() {
 		$poll = array(
 			'Poll' => array(
-				'id' => 3,
 				'question' => 'Who is hotter JLaw or EmmaW?',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'published_date' => '2014-09-23',
 				'published_time' => '18:47:10',
 				'status' => 0
 			),
+			'answer' => array(
+				0 => 'JLaw',
+				1 => 'Emma',
+			),
+			'answerColor' => array(
+				0 => 'blue',
+				1 => 'red',
+			),
 		);
 
-		$this->testAction('/admin/polls/add', array('data' => $$poll, 'method' => 'post'));
+		$this->testAction('/admin/polls/add', array('data' => $poll, 'method' => 'post'));
 
 		$result = $this->testAction('/admin/polls/index', array('return' => 'vars'));
 
@@ -62,26 +69,17 @@ class PollsControllerTest extends ControllerTestCase {
 				'published_time' => '18:47:10',
 				'status' => 1
 			),
-			'PollAnswer' => array(
-				array(
-					'poll_id' => 4,
-					'answer' => 'Jlaw',
-					'num_votes' => 0,
-					'color' => 'Lorem ipsum dolor sit amet',
-					'status' => 1
-				),
-				array(
-					'poll_id' => 4,
-					'answer' => 'EmmaW',
-					'num_votes' => 0,
-					'color' => 'Lorem ipsum dolor sit amet',
-					'status' => 1
-				)
+			'answer' => array(
+				0 => 'JLaw',
+				1 => 'Emma',
+			),
+			'answerColor' => array(
+				0 => 'blue',
+				1 => 'red',
 			),
 		);
 
-		$this->testAction('/admin/polls/add', array('data' => $$poll, 'method' => 'post'));
-
+		$this->testAction('/admin/polls/add', array('data' => $poll, 'method' => 'post'));
 		$result = $this->testAction('/admin/polls/edit/4', array('return' => 'vars', 'method' => 'get'));
 
 		$this->assertCount(2, $result['poll']);
@@ -96,17 +94,35 @@ class PollsControllerTest extends ControllerTestCase {
 	public function testAdminEdit() {
 		$poll = array(
 			'Poll' => array(
+				'id' => 3,
 				'question' => 'Who is hotter J Law or Emma W?',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'published_date' => '2014-09-23',
 				'published_time' => '18:47:10',
 				'status' => 1
 			),
+			'answerId' => array(
+				0 => 1,
+				1 => 2
+			),
+			'answer' => array(
+				0 => 'JLawrence',
+				1 => 'EmmaW',
+			),
+			'answerColor' => array(
+				0 => 'blue',
+				1 => 'red',
+			),
+			'answerNumVotes' => array(
+				0 => 25,
+				1 => 27
+			),
 		);
 
-		$result = $this->testAction('/admin/polls/edit/4', array('return' => 'vars', 'method' => 'post', 'data' => $poll));
+		$this->testAction('/admin/polls/edit/3', array('return' => 'vars', 'method' => 'post', 'data' => $poll));
+		$result = $this->Poll->findById(3);
 
-		$this->assertEquals($poll['Poll']['question'], $result['poll']['Poll']['question']);
+		$this->assertEquals($poll['Poll']['question'], $result['Poll']['question']);
 	}
 
 /**
@@ -130,8 +146,8 @@ class PollsControllerTest extends ControllerTestCase {
 	public function testShow() {
 		$result = $this->_testAction('/polls/show/3', array('return' => 'vars'));
 
-		$this->assertCount(1, $result['Poll']);
-		$this->assertCount(2, $result['PollAnswer']);
+		$this->assertCount(6, $result['poll']['Poll']);
+		$this->assertCount(2, $result['poll']['PollAnswer']);
 	}
 
 }

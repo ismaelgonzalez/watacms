@@ -69,13 +69,8 @@ class PollsController extends AppController {
 		$this->set('pageHeader', 'Encuestas');
 		$this->set('sectionTitle', 'Editar');
 
-		//search for poll by id
-		//if poll exists
-			//if is post
-				//save, show message and redirect to index
-		// if not show message redirect to index
-
 		$poll = $this->Poll->findById($id);
+		$this->set('poll', $poll);
 
 		if ( !empty($poll) ) {
 			if ($this->request->is('post')) {
@@ -90,7 +85,8 @@ class PollsController extends AppController {
 
 				if ($this->Poll->saveAssociated($this->request->data)) {
 					$this->Session->setFlash('Se agreg&oacute; la nueva Encuesta!', 'default', array('class' => 'alert alert-success'));
-					return $this->redirect(array('action' => 'index'));
+
+					return $this->redirect('/admin/polls/index');
 				} else {
 					$this->Session->setFlash('No se pudo guardar la Encuesta :S', 'default', array('class' => 'alert alert-danger'));
 				}
@@ -100,16 +96,35 @@ class PollsController extends AppController {
 
 			return $this->redirect('/admin/polls/index');
 		}
-
-		$this->set('poll', $poll);
-
 	}
 
 	public function admin_delete($id = null) {
+		$this->autoRender = false;
 
+		$poll = $this->Poll->findById($id);
+
+		if (!empty($poll)) {
+			$poll['Poll']['status'] = 0;
+			if ( $this->Poll->save($poll) ) {
+				$this->Session->setFlash('Se borr&oacute; la Encuesta', 'default', array('class' => 'alert alert-success'));
+
+				return $this->redirect('/admin/polls/index');
+			} else {
+				$this->Session->setFlash('No se pudo borrar la Encuesta', 'default', array('class' => 'alert alert-danger'));
+
+				return $this->redirect('/admin/polls/index');
+			}
+		} else {
+			$this->Session->setFlash('No existe encuesta con este ID :S', 'default', array('class' => 'alert alert-danger'));
+
+			return $this->redirect('/admin/polls/index');
+		}
 	}
 
 	public function show($id) {
-
+		$this->autoRender = false;
+		echo __CLASS__ . ' ' . __FUNCTION__;
+		$poll = $this->Poll->findById($id);
+		$this->set('poll', $poll);
 	}
 }
