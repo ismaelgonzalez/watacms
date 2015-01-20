@@ -65,7 +65,7 @@
 			<div class="panel-heading">Respuestas de la Encuesta</div>
 			<div class="panel-body">
 				<?php foreach ($poll['PollAnswer'] as $pa) { ?>
-				<div class="newAnswer col-md-12 form-group">
+				<div class="newAnswer col-md-12 form-group js-answer-<?php echo $pa['id']; ?>">
 					<div class="col-md-3">
 						<label for="PollAnswerAnswer">Respuesta</label>
 						<input type="hidden" name="answerId[]" value="<?php echo $pa['id']; ?>">
@@ -87,7 +87,7 @@
 					</div>
 					<div class="col-md-3 borrarPollAnswer">
 						<label>Borrar</label><br>
-						<a class="btn btn-danger deletePollAnswer">
+						<a class="btn btn-danger deletePollAnswer" data-poll-answer-id="<?php echo $pa['id']; ?>">
 							<i class="fa fa-fw fa-times-circle"></i>
 						</a>
 					</div>
@@ -131,6 +131,23 @@
 			'</select>' +
 			'</div>' +
 			'</div>');
+		});
+
+		$('.deletePollAnswer').click(function() {
+			var $poll_answer_id = $(this).data('poll-answer-id');
+
+			$.ajax({
+				type: 'post',
+				url: '/admin/poll_answers/delete/' + $poll_answer_id,
+				success: function(html) {
+					if (html==='ok') {
+						$('.js-answer-' + $poll_answer_id).fadeOut('slow');
+					} else {
+						alert('Error al querer borrar esta respuesta, intenta de nuevo');
+					}
+				}
+			});
+			console.log($(this).data('poll-answer-id'));
 		});
 	});
 </script>

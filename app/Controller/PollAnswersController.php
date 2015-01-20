@@ -15,44 +15,38 @@ class PollAnswersController extends AppController {
 
 	public $layout     = 'admin';
 
-
-	public function admin_edit($poll_id = null) {
-		$this->autoRender = false;
-		//find this poll
-		//if it exists
-			//set poll answers
-			//if post
-				//save
-				//return to /admin/polls/
-		//else send error message
-
-
-
-		/*if (!$this->PollAnswer->exists($id)) {
-			throw new NotFoundException(__('Invalid section'));
-		}
-
-		if ($this->request->is(array('post', 'put'))) {
-			if (!$this->PollAnswer->save($this->request->data)) {
-
-				$this->Session->setFlash('No se pudo guardar la Respuesta de la Encuesta :S', 'default', array('class'=>'alert alert-danger'));
-				return $this->redirect('/admin/polls/');
-			}
-		}*/
-	}
-
 	public function admin_delete($id = null) {
-		//find this pollAnswer
-		//if it exists
-			//update status to 0
-			//save
-			//return /admin/polls/
-		//else, send error message
+		$this->autoRender = false;
+
+		$poll_answer = $this->PollAnswer->findById($id);
+
+		if (!empty($poll_answer)) {
+			$poll_answer['PollAnswer']['status'] = 0;
+			if ( $this->PollAnswer->save($poll_answer) ) {
+				echo 'ok';
+			} else {
+				echo 'error';
+			}
+		} else {
+			echo 'error';
+		}
 	}
 
 	public function addVote($poll_id, $id) {
 		$this->autoRender = false;
-		debug($poll_id);
-		debug($id);
+
+		$this->PollAnswer->recursive = -1;
+		$poll_answer = $this->PollAnswer->findByPollIdAndIdAndStatus($poll_id, $id, 1);
+
+		if (!empty($poll_answer)) {
+			$poll_answer['PollAnswer']['num_votes']++;
+			if ( $this->PollAnswer->save($poll_answer) ) {
+				echo 'ok';
+			} else {
+				echo 'error';
+			}
+		} else {
+			echo 'error';
+		}
 	}
 }

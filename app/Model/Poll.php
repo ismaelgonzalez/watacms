@@ -40,7 +40,9 @@ class Poll extends AppModel {
 			'className' => 'PollAnswer',
 			'foreignKey' => 'poll_id',
 			'dependent' => false,
-			'conditions' => '',
+			'conditions' => array(
+				'PollAnswer.status' => 1
+			),
 			'fields' => '',
 			'order' => '',
 			'limit' => '',

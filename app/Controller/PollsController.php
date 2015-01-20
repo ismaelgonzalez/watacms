@@ -123,7 +123,6 @@ class PollsController extends AppController {
 
 	public function show($id) {
 		$this->autoRender = false;
-		echo __CLASS__ . ' ' . __FUNCTION__;
 		$poll = $this->Poll->findById($id);
 		$this->set('poll', $poll);
 	}
