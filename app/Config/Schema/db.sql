@@ -110,3 +110,26 @@ CREATE TABLE `poll_answers` (
   PRIMARY KEY (`id`)
 );
 
+##albums
+CREATE TABLE `albums` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) DEFAULT NULL,
+  `blurb` varchar(250) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL,
+  `is_published` TINYINT(4) DEFAULT 1,
+  `published_date` DATE DEFAULT NULL,
+  `published_time` TIME DEFAULT NULL,
+  `status` TINYINT(4) DEFAULT 1,
+  PRIMARY KEY (`id`)
+);
+
+##photos
+CREATE TABLE `photos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pic` varchar(128) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `blurb` varchar(250) DEFAULT NULL,
+  `album_id` int(11) DEFAULT NULL,
+  `status` TINYINT(4) DEFAULT 1,
+  PRIMARY KEY (`id`)
+);
