@@ -24,6 +24,8 @@ class PhotosControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminIndex() {
+		//call index, which will have a find for all the records where status=1
+		//it should find 3 records
 		$this->markTestIncomplete('testAdminIndex not implemented.');
 	}
 

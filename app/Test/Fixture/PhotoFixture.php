@@ -37,6 +37,30 @@ class PhotoFixture extends CakeTestFixture {
 			'album_id' => 1,
 			'status' => 1
 		),
+		array(
+			'id' => 2,
+			'pic' => 'Lorem ipsum dolor sit amet',
+			'title' => 'Lorem ipsum dolor sit amet',
+			'blurb' => 'Lorem ipsum dolor sit amet',
+			'album_id' => 1,
+			'status' => 1
+		),
+		array(
+			'id' => 3,
+			'pic' => 'Lorem ipsum dolor sit amet',
+			'title' => 'Lorem ipsum dolor sit amet',
+			'blurb' => 'Lorem ipsum dolor sit amet',
+			'album_id' => 1,
+			'status' => 1
+		),
+		array(
+			'id' => 4,
+			'pic' => 'Lorem ipsum dolor sit amet',
+			'title' => 'Lorem ipsum dolor sit amet',
+			'blurb' => 'Lorem ipsum dolor sit amet',
+			'album_id' => 2,
+			'status' => 1
+		),
 	);
 
 }

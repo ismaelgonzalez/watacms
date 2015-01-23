@@ -33,7 +33,27 @@ class AlbumFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'title' => 'Lorem ipsum dolor sit amet',
+			'title' => 'Album 1',
+			'blurb' => 'Lorem ipsum dolor sit amet',
+			'section_id' => 1,
+			'is_published' => 1,
+			'published_date' => '2015-01-21',
+			'published_time' => '18:31:38',
+			'status' => 1
+		),
+		array(
+			'id' => 2,
+			'title' => 'Album 2',
+			'blurb' => 'Lorem ipsum dolor sit amet',
+			'section_id' => 1,
+			'is_published' => 1,
+			'published_date' => '2015-01-21',
+			'published_time' => '18:31:38',
+			'status' => 1
+		),
+		array(
+			'id' => 3,
+			'title' => 'Album 3',
 			'blurb' => 'Lorem ipsum dolor sit amet',
 			'section_id' => 1,
 			'is_published' => 1,
