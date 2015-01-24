@@ -24,9 +24,9 @@ class PhotosControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminIndex() {
-		//call index, which will have a find for all the records where status=1
-		//it should find 3 records
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		$result = $this->testAction('/admin/photos/index', array('return' => 'vars'));
+
+		$this->assertEmpty($result);
 	}
 
 /**
@@ -35,7 +35,20 @@ class PhotosControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminAdd() {
-		$this->markTestIncomplete('testAdminAdd not implemented.');
+		$album_id = 1;
+		$photo = array(
+				'Photo' => array(
+				'pic' => 'new_pic.jpg',
+				'title' => 'New Pic',
+				'blurb' => 'Lorem ipsum dolor sit amet',
+				'album_id' => $album_id,
+				'status' => 1
+		));
+
+		$this->testAction('/admin/photos/add' . $album_id, array('return' => 'vars', 'data' => $photo, 'method' => 'post'));
+
+		$result = $this->testAction('/admin/album/view/' . $album_id, array('return' => 'vars', 'method' => 'get'));
+		$this->assertCount(4, $result['photos']);
 	}
 
 /**
@@ -44,7 +57,22 @@ class PhotosControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminEdit() {
-		$this->markTestIncomplete('testAdminEdit not implemented.');
+		$album_id = 1;
+		$photo = array(
+			'Photo' => array(
+				'id' => 1,
+				'pic' => 'new_pic.jpg',
+				'title' => 'New Pic',
+				'blurb' => 'Lorem ipsum dolor sit amet',
+				'album_id' => $album_id,
+				'status' => 1
+			));
+
+		$this->testAction('/admin/photos/edit/1', array('return' => 'vars', 'data' => $photo, 'method' => 'post'));
+
+		$result = $this->testAction('/admin/photos/edit/1/', array('return' => 'vars', 'method' => 'get'));
+		$this->assertCount(1, $result['Photo']);
+		$this->assertEquals($photo['Photo'], $result['Photo']);
 	}
 
 /**
@@ -53,16 +81,9 @@ class PhotosControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminDelete() {
-		$this->markTestIncomplete('testAdminDelete not implemented.');
-	}
+		$this->testAction('/admin/photos/delete/1', array('return' => 'vars', 'method' => 'post'));
 
-/**
- * testAdminView method
- *
- * @return void
- */
-	public function testAdminView() {
-		$this->markTestIncomplete('testAdminView not implemented.');
+		$result = $this->testAction('/admin/albums/view/1/', array('return' => 'vars', 'method' => 'get'));
+		$this->assertCount(2, $result['Photo']);
 	}
-
 }

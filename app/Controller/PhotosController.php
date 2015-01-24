@@ -12,11 +12,9 @@ class PhotosController extends AppController {
 	public $layout = 'admin';
 
 	public function admin_index() {
-		$this->autoRender = false;
-		echo __CLASS__ . ' ' . __FUNCTION__;
+		return $this->redirect('/admin/');
 	}
 	public function admin_add() {}
 	public function admin_edit() {}
 	public function admin_delete() {}
-	public function admin_view() {}
 }

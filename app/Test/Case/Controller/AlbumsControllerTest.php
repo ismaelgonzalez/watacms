@@ -26,7 +26,9 @@ class AlbumsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminIndex() {
-		$this->markTestIncomplete('testAdminIndex not implemented.');
+		$result = $this->testAction('/admin/albums/index', array('return' => 'vars'));
+
+		$this->assertCount(3, $result);
 	}
 
 /**
@@ -35,7 +37,20 @@ class AlbumsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminAdd() {
-		$this->markTestIncomplete('testAdminAdd not implemented.');
+		$album = array(
+			'Album' => array(
+				'title' => 'Album 4',
+				'blurb' => 'Lorem ipsum dolor sit amet',
+				'section_id' => 2,
+				'is_published' => 1,
+				'published_date' => '2015-01-21',
+				'published_time' => '18:31:38',
+				'status' => 1
+			)
+		);
+
+		$result = $this->testAction('/admin/albums/add', array('return' => 'vars', 'data' => $album, 'method' => 'post'));
+		$this->assertCount(4, $result['albums']);
 	}
 
 /**
@@ -44,7 +59,24 @@ class AlbumsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminEdit() {
-		$this->markTestIncomplete('testAdminEdit not implemented.');
+		$album = array(
+			'Album' => array(
+				'id' => 1,
+				'title' => 'Edit Album 1',
+				'blurb' => 'Lorem ipsum dolor sit amet',
+				'section_id' => 2,
+				'is_published' => 1,
+				'published_date' => '2015-01-21',
+				'published_time' => '18:31:38',
+				'status' => 1
+			)
+		);
+
+		$this->testAction('/admin/albums/edit/1', array('return' => 'vars', 'data' => $album, 'method' => 'post'));
+
+		$result = $this->testAction('/admin/albums/edit/1/', array('return' => 'vars', 'method' => 'get'));
+		$this->assertCount(1, $result['Album']);
+		$this->assertEquals($album['Album'], $result['Album']);
 	}
 
 /**
@@ -53,7 +85,10 @@ class AlbumsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminDelete() {
-		$this->markTestIncomplete('testAdminDelete not implemented.');
+		$this->testAction('/admin/albums/delete/1', array('return' => 'vars', 'method' => 'post'));
+
+		$result = $this->testAction('/admin/albums/index', array('return' => 'vars', 'method' => 'get'));
+		$this->assertCount(2, $result['albums']);
 	}
 
 /**
@@ -62,7 +97,9 @@ class AlbumsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminView() {
-		$this->markTestIncomplete('testAdminView not implemented.');
+		$result = $this->testAction('/admin/albums/view/2', array('return' => 'vars', 'method' => 'post'));
+
+		$this->assertCount(1, $result['photos']);
 	}
 
 }
