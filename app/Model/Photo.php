@@ -14,6 +14,8 @@ class Photo extends AppModel {
  */
 	public $displayField = 'title';
 
+	public $actsAs = array('Upload');
+
 /**
  * Validation rules
  *
@@ -48,4 +50,17 @@ class Photo extends AppModel {
 			'order' => ''
 		)
 	);
+
+	public function beforeSave($options = array()) {
+		parent::beforeSave();
+
+		$this->data[$this->alias]['status'] = isset($this->data[$this->alias]['status']) ? $this->data[$this->alias]['status'] : 1;
+
+		if(!empty($this->data[$this->alias]['pic']['name'])){
+			$pic_name = $this->uploadPic('photos', true);
+			$this->data[$this->alias]['pic'] = $pic_name;
+		}
+
+		return true;
+	}
 }

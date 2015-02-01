@@ -62,7 +62,9 @@ class Album extends AppModel {
 			'className' => 'Photo',
 			'foreignKey' => 'album_id',
 			'dependent' => false,
-			'conditions' => '',
+			'conditions' => array(
+				'Photo.status' => 1
+			),
 			'fields' => '',
 			'order' => '',
 			'limit' => '',

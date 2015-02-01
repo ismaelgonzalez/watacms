@@ -10,6 +10,7 @@
 	echo $this->Html->meta('icon');
 
 	echo $this->Html->css('bootstrap.min');
+	echo $this->Html->css('bootstrap-fileupload.min');
 	echo $this->Html->css('jquery-ui-1.10.4.custom.min');
 	echo $this->Html->css('sb-admin');
 	echo $this->Html->css('watacms');
@@ -17,6 +18,8 @@
 	echo $this->HTML->script('jquery-1.11.0');
 	echo $this->HTML->script('jquery-ui-1.10.4.custom.min');
 	echo $this->HTML->script('bootstrap.min');
+	echo $this->Html->script('bootstrap-fileupload.min');
+	echo $this->Html->script('masonry.pkgd.min');
 
 	echo $this->fetch('meta');
 	echo $this->fetch('css');

@@ -85,7 +85,41 @@ class AlbumsController extends AppController {
 		$this->set('album', $album);
 	}
 
-	public function admin_delete() {}
-	public function admin_view() {}
+	public function admin_delete($id = null) {
+		$this->autoRender = false;
+
+		$album = $this->Album->find('first', array(
+			'conditions' => array(
+				'Album.id' => $id
+			)
+		));
+
+		if ($album) {
+			$album['Album']['status'] = 0;
+			if ($this->Album->save($album) ) {
+				$this->Session->setFlash('Se desactiv&oacute; la Galería con exito!', 'default', array('class'=>'alert alert-success'));
+
+				return $this->redirect('/admin/albums/index');
+			} else {
+				$this->Session->setFlash('No se borro la Galería :(', 'default', array('class'=>'alert alert-danger'));
+
+				return $this->redirect('/admin/albums/index');
+			}
+
+		} else {
+			$this->Session->setFlash('No existe Galería con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/admin/albums/index');
+			return $this->redirect('/admin/albums/index');
+		}
+	}
+	public function admin_view($id = null) {
+		$this->set('title_for_layout', 'Administrar Galerías');
+		$this->set('pageHeader', 'Galerías');
+		$this->set('sectionTitle', 'Ver Fotos de la Galería');
+
+		$album = $this->Album->findById($id);
+		$this->set('album', $album);
+	}
 
 }

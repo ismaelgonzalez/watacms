@@ -101,7 +101,7 @@ class AlbumsControllerTest extends ControllerTestCase {
 	public function testAdminView() {
 		$result = $this->testAction('/admin/albums/view/2', array('return' => 'vars', 'method' => 'post'));
 
-		$this->assertCount(1, $result['photos']);
+		$this->assertCount(1, $result['album']['Photo']);
 	}
 
 }

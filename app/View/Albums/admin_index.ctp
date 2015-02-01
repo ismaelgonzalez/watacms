@@ -5,7 +5,7 @@ if (sizeof($albums) < 1) {
 } else {
 	?>
 	<div class="pics index table-responsive">
-		<h2><?php echo __('$albums'); ?></h2>
+		<h2><?php echo __('Galerías'); ?></h2>
 		<table class="table table-striped table-hover">
 			<thead>
 			<tr>
@@ -60,24 +60,24 @@ if (sizeof($albums) < 1) {
 				<h4 class="modal-title">WataCMS - Admin</h4>
 			</div>
 			<div class="modal-body">
-				<p>Estas Seguro que quieres borrar esta Imagen?</p>
+				<p>Estas Seguro que quieres borrar esta Galería?</p>
 				<input id="deleteID" value="" type="hidden">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				<button id="confirmDelete" type="button" class="btn btn-danger">Desactivar Imagen</button>
+				<button id="confirmDelete" type="button" class="btn btn-danger">Desactivar Galería</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script type="text/javascript">
 	$(function() {
-		$("[data-toggle=tooltip]").tooltip({placement: 'right'});
+		$("[data-toggle=tooltip]").tooltip({placement: 'top'});
 
 		$("#confirmDelete").click(function() {
 			var id = $("#deleteID").val();
 			$("#deleteAlbum").modal('hide');
-			window.open('/admin/$albums/delete/'+id, '_parent');
+			window.open('/admin/albums/delete/'+id, '_parent');
 		});
 	});
 
