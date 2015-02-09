@@ -133,3 +133,17 @@ CREATE TABLE `photos` (
   `status` TINYINT(4) DEFAULT 1,
   PRIMARY KEY (`id`)
 );
+
+##videos
+CREATE TABLE `videos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video` varchar(128) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `blurb` varchar(250) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL,
+  `is_published` TINYINT(4) DEFAULT 1,
+  `published_date` DATE DEFAULT NULL,
+  `published_time` TIME DEFAULT NULL,
+  `status` TINYINT(4) DEFAULT 1,
+  PRIMARY KEY (`id`)
+);
