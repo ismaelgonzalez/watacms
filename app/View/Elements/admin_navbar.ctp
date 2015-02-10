@@ -55,8 +55,8 @@
 			<li <?php if($this->params['controller'] == 'pics') { echo 'class="active"'; } ?>>
 				<a href="/admin/pics"><i class="fa fa-fw fa-camera"></i> Imagenes</a>
 			</li>
-			<li>
-				<a href="#"><i></i>Videos</a>
+			<li <?php if($this->params['controller'] == 'videos') { echo 'class="active"'; } ?>>
+				<a href="/admin/videos"><i class="fa fa-fw fa-video-camera"></i> Videos</a>
 			</li>
 			<li <?php if($this->params['controller'] == 'polls') { echo 'class="active"'; } ?>>
 				<a href="/admin/polls"><i class="fa fa-fw fa-list-ol"></i> Encuestas</a>
