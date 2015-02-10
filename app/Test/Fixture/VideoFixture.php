@@ -1,9 +1,9 @@
 <?php
 /**
- * PhotoFixture
+ * VideoFixture
  *
  */
-class PhotoFixture extends CakeTestFixture {
+class VideoFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -12,10 +12,13 @@ class PhotoFixture extends CakeTestFixture {
  */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'pic' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'video' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'title' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'blurb' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 250, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'album_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'section_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'is_published' => array('type' => 'integer', 'null' => true, 'default' => '1', 'length' => 4, 'unsigned' => false),
+		'published_date' => array('type' => 'date', 'null' => true, 'default' => null),
+		'published_time' => array('type' => 'time', 'null' => true, 'default' => null),
 		'status' => array('type' => 'integer', 'null' => true, 'default' => '1', 'length' => 4, 'unsigned' => false),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
@@ -31,34 +34,35 @@ class PhotoFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'pic' => '',
-			'title' => 'Lorem ipsum dolor sit amet',
+			'video' => 'link1',
+			'title' => 'Link 1',
 			'blurb' => 'Lorem ipsum dolor sit amet',
-			'album_id' => 1,
+			'section_id' => 1,
+			'is_published' => 1,
+			'published_date' => '2015-02-09',
+			'published_time' => '17:32:37',
 			'status' => 1
 		),
 		array(
 			'id' => 2,
-			'pic' => '',
-			'title' => 'Lorem ipsum dolor sit amet',
+			'video' => 'link2',
+			'title' => 'Link 2',
 			'blurb' => 'Lorem ipsum dolor sit amet',
-			'album_id' => 1,
+			'section_id' => 1,
+			'is_published' => 1,
+			'published_date' => '2015-02-09',
+			'published_time' => '17:32:37',
 			'status' => 1
 		),
 		array(
 			'id' => 3,
-			'pic' => '',
-			'title' => 'Lorem ipsum dolor sit amet',
+			'video' => 'link3',
+			'title' => 'Link 3',
 			'blurb' => 'Lorem ipsum dolor sit amet',
-			'album_id' => 1,
-			'status' => 1
-		),
-		array(
-			'id' => 4,
-			'pic' => '',
-			'title' => 'Lorem ipsum dolor sit amet',
-			'blurb' => 'Lorem ipsum dolor sit amet',
-			'album_id' => 2,
+			'section_id' => 1,
+			'is_published' => 0,
+			'published_date' => '2015-02-09',
+			'published_time' => '17:32:37',
 			'status' => 1
 		),
 	);

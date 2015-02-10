@@ -31,7 +31,7 @@ class PhotoTest extends CakeTestCase {
 	public function test_Create() {
 		$photo = array(
 			'Photo' => array(
-				'pic' => 'pic4.jpg',
+				//'pic' => 'pic4.jpg',
 				'title' => 'Lorem ipsum dolor sit amet',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'album_id' => 1,
@@ -49,7 +49,7 @@ class PhotoTest extends CakeTestCase {
 		$photo = array(
 			'Photo' => array(
 				'id' => 1,
-				'pic' => 'Lorem ipsum dolor sit amet',
+				//'pic' => '',
 				'title' => 'New Pic 1',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'album_id' => 1,

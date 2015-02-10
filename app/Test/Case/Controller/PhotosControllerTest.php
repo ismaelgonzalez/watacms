@@ -61,12 +61,12 @@ class PhotosControllerTest extends ControllerTestCase {
 		$album_id = 1;
 		$photo = array(
 			'Photo' => array(
-				'id' => 1,
-				'pic' => 'new_pic.jpg',
+				'id' => '1',
+				//'pic' => 'new_pic.jpg',
 				'title' => 'New Pic',
 				'blurb' => 'Lorem ipsum dolor sit amet',
-				'album_id' => $album_id,
-				'status' => 1
+				'album_id' => "$album_id",
+				'status' => '1'
 			));
 
 		$this->testAction('/admin/photos/edit/1', array('return' => 'vars', 'data' => $photo, 'method' => 'post'));
@@ -74,6 +74,7 @@ class PhotosControllerTest extends ControllerTestCase {
 		$result = $this->testAction('/admin/photos/edit/1/', array('return' => 'vars', 'method' => 'get'));
 
 		$this->assertCount(6, $result['photo']['Photo']);
+		unset($result['photo']['Photo']['pic']);
 		$this->assertEquals($photo['Photo'], $result['photo']['Photo']);
 	}
 
