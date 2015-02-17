@@ -13,6 +13,7 @@ class VideoFixture extends CakeTestFixture {
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'video' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'video_number' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'title' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'blurb' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 250, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'section_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
@@ -34,7 +35,8 @@ class VideoFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'video' => 'link1',
+			'video' => 'https://www.youtube.com/watch?v=0KSOMA3QBU0',
+			'video_number' => '0KSOMA3QBU0',
 			'title' => 'Link 1',
 			'blurb' => 'Lorem ipsum dolor sit amet',
 			'section_id' => 1,
@@ -45,7 +47,8 @@ class VideoFixture extends CakeTestFixture {
 		),
 		array(
 			'id' => 2,
-			'video' => 'link2',
+			'video' => 'https://www.youtube.com/watch?v=0KSOMA3QBU0',
+			'video_number' => '0KSOMA3QBU0',
 			'title' => 'Link 2',
 			'blurb' => 'Lorem ipsum dolor sit amet',
 			'section_id' => 1,
@@ -56,7 +59,8 @@ class VideoFixture extends CakeTestFixture {
 		),
 		array(
 			'id' => 3,
-			'video' => 'link3',
+			'video' => 'https://www.youtube.com/watch?v=0KSOMA3QBU0',
+			'video_number' => '0KSOMA3QBU0',
 			'title' => 'Link 3',
 			'blurb' => 'Lorem ipsum dolor sit amet',
 			'section_id' => 1,

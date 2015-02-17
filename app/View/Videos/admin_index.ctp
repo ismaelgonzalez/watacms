@@ -25,7 +25,10 @@ if (sizeof($videos) < 1) {
 			<?php foreach ($videos as $video): ?>
 				<tr>
 					<td><?php echo h($video['Video']['id']); ?>&nbsp;</td>
-					<td><a href="<?php echo $video['Video']['video']; ?>" target="_blank"><?php echo $video['Video']['video']; ?></a>&nbsp;</td>
+					<td><iframe width="150" height="113" src="https://www.youtube.com/embed/<?php echo $video['Video']['video_number']; ?>" frameborder="0" allowfullscreen></iframe>
+						<br>
+						<a href="<?php echo $video['Video']['video']; ?>" target="_blank"><?php echo $video['Video']['video']; ?></a>&nbsp;
+					</td>
 					<td><?php echo h($video['Video']['title']); ?>&nbsp;</td>
 					<td><?php echo h($video['Video']['blurb']); ?>&nbsp;</td>
 					<td>

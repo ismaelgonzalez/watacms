@@ -90,6 +90,31 @@ class Video extends AppModel {
 			unset($this->data[$this->alias]['published_time']);
 		}
 
+		$this->data[$this->alias]['video_number'] = $this->get_video_number( $this->data[$this->alias]['video'] );
+
 		return true;
+	}
+
+	/*
+	 * This function returns the video number for a video
+	 * @params string $video
+	 * @return string $video_number
+	 */
+	private function get_video_number( $video ) {
+		$video_number = '';
+		$vid = array();
+
+		if ( strstr( $video, 'https://www.youtube.com/watch?v=' ) ) { //if video link is the long form youtube url
+			$vid = explode( 'https://www.youtube.com/watch?v=', $video );
+			$video_number = $vid[1];
+		} elseif ( strstr( $video, 'http://youtu.be/' ) ) { //if video link is short form youtube url
+			$vid = explode( 'http://youtu.be/', $video );
+			$video_number = $vid[1];
+		} elseif ( strstr( $video, 'https://vimeo.com/' ) ) { //if vimeo url
+			$vid = explode( 'https://vimeo.com/', $video );
+			$video_number = $vid[1];
+		}
+
+		return $video_number;
 	}
 }

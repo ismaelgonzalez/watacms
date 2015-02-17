@@ -138,6 +138,7 @@ CREATE TABLE `photos` (
 CREATE TABLE `videos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `video` varchar(128) DEFAULT NULL,
+  `video_number` varchar(100) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
   `blurb` varchar(250) DEFAULT NULL,
   `section_id` int(11) DEFAULT NULL,
@@ -147,3 +148,5 @@ CREATE TABLE `videos` (
   `status` TINYINT(4) DEFAULT 1,
   PRIMARY KEY (`id`)
 );
+
+#ALTER TABLE video ADD COLUMN video_number VARCHAR(100);

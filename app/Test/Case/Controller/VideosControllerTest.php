@@ -43,7 +43,7 @@ class VideosControllerTest extends ControllerTestCase {
 	public function testAdminAdd() {
 		$video = array(
 			'Video' => array(
-				'video' => 'link4',
+				'video' => 'https://www.youtube.com/watch?v=HE46n2Rs9Jo',
 				'title' => 'Title 4',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'section_id' => 1,
@@ -69,7 +69,8 @@ class VideosControllerTest extends ControllerTestCase {
 		$video = array(
 			'Video' => array(
 				'id' => '1',
-				'video' => 'new link',
+				'video' => 'https://www.youtube.com/watch?v=HE46n2Rs9Jo',
+				'video_number' => 'HE46n2Rs9Jo',
 				'title' => 'Title New',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'section_id' => '1',

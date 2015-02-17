@@ -32,7 +32,7 @@ class VideoTest extends CakeTestCase {
 	public function testCreate() {
 		$video = array(
 			'Video' => array(
-				'video' => '',
+				'video' => 'https://www.youtube.com/watch?v=HE46n2Rs9Jo',
 				'title' => 'Title 4',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'section_id' => 1,
@@ -54,7 +54,7 @@ class VideoTest extends CakeTestCase {
 				'id' => 1,
 				'title' => 'New Title',
 				'section_id' => 3,
-				'video' => '',
+				'video' => 'https://www.youtube.com/watch?v=HE46n2Rs9Jo',
 				'published_date' => '2014-09-13',
 				'published_time' => '14:41:50',
 			),
@@ -66,6 +66,7 @@ class VideoTest extends CakeTestCase {
 
 		$this->assertEquals($video['Video']['title'], $modified_video['Video']['title']);
 		$this->assertEquals($video['Video']['section_id'], $modified_video['Video']['section_id']);
+		$this->assertEquals('HE46n2Rs9Jo', $modified_video['Video']['video_number']);
 	}
 
 	public function testFind() {
@@ -73,7 +74,7 @@ class VideoTest extends CakeTestCase {
 
 		$this->assertEquals('Link 1', $video['Video']['title']);
 		$this->assertEquals('1', $video['Video']['section_id']);
-		$this->assertEquals('link1', $video['Video']['video']);
+		$this->assertEquals('https://www.youtube.com/watch?v=0KSOMA3QBU0', $video['Video']['video']);
 	}
 /**
  * tearDown method
