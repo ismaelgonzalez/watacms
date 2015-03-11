@@ -150,3 +150,24 @@ CREATE TABLE `videos` (
 );
 
 #ALTER TABLE video ADD COLUMN video_number VARCHAR(100);
+
+##articles
+CREATE TABLE `articles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) DEFAULT NULL,
+  `slug` varchar(128) DEFAULT NULL,
+  `blurb` varchar(250) DEFAULT NULL,
+  `body` text DEFAULT NULL,
+  `pic` varchar(128) DEFAULT NULL,
+  `pic_blurb` varchar(250) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL,
+  `is_published` TINYINT(4) DEFAULT 1,
+  `published_date` DATE DEFAULT NULL,
+  `published_time` TIME DEFAULT NULL,
+  `status` TINYINT(4) DEFAULT 1,
+  `is_main` TINYINT(1) DEFAULT 0,
+  `is_top` TINYINT(1) DEFAULT 0,
+  `was_main` TINYINT(4) DEFAULT 0,
+  `num_views` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+);
