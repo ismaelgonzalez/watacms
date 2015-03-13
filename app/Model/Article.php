@@ -99,6 +99,8 @@ class Article extends AppModel {
 			$this->data[$this->alias]['pic'] = $pic_name;
 		}
 
+		//check is_main/was_main
+
 		return true;
 	}
 }

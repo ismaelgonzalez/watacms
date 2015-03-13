@@ -4,6 +4,7 @@
  *
  */
 class ArticleFixture extends CakeTestFixture {
+	public $useDbConfig = 'test';
 
 /**
  * Fields
