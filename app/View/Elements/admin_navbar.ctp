@@ -38,7 +38,7 @@
 				<a href="/admin/dashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
 			</li>
 			<li <?php if($this->params['controller'] == 'articles') { echo 'class="active"'; } ?>>
-				<a href="/admin/articles"><i class="fa fa-fw fa-pencil-square-o"></i> Notas</a>
+				<a href="/admin/posts"><i class="fa fa-fw fa-pencil-square-o"></i> Notas</a>
 			</li>
 			<li <?php if($this->params['controller'] == 'sections') { echo 'class="active"'; } ?>>
 				<a href="/admin/sections"><i class="fa fa-fw fa-list"></i> Secciones</a>
