@@ -100,6 +100,7 @@ class Article extends AppModel {
 		}
 
 		//check is_main/was_main
+		//slug title
 
 		return true;
 	}

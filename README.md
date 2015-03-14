@@ -35,3 +35,8 @@ require ROOT . DS . 'Vendor/autoload.php';
 spl_autoload_unregister(array('App', 'load'));
 spl_autoload_register(array('App', 'load'), true, true);
 ```
+
+6.- because of tinyMCE I need to edit the .htaccess file at app/ and add this:
+```php_value short_open_tag 0```
+NOTE: I need to make a new AssetDispatcher to not have php short tags on
+http://stackoverflow.com/questions/24266294/sharing-tinymce-plugin-across-multiple-applications

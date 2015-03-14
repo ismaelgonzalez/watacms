@@ -37,8 +37,8 @@
 				<!-- TODO set propper admin routing for dashboard -->
 				<a href="/admin/dashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
 			</li>
-			<li>
-				<a href="#"><i></i>Notas</a>
+			<li <?php if($this->params['controller'] == 'articles') { echo 'class="active"'; } ?>>
+				<a href="/admin/articles"><i class="fa fa-fw fa-pencil-square-o"></i> Notas</a>
 			</li>
 			<li <?php if($this->params['controller'] == 'sections') { echo 'class="active"'; } ?>>
 				<a href="/admin/sections"><i class="fa fa-fw fa-list"></i> Secciones</a>
