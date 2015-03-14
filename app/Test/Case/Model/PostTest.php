@@ -1,11 +1,11 @@
 <?php
-App::uses('Article', 'Model');
+App::uses('Post', 'Model');
 
 /**
- * Article Test Case
+ * Post Test Case
  *
  */
-class ArticleTest extends CakeTestCase {
+class PostTest extends CakeTestCase {
 
 /**
  * Fixtures
@@ -13,7 +13,7 @@ class ArticleTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.article',
+		'app.post',
 		'app.section',
 		'app.tagged'
 	);
@@ -25,14 +25,14 @@ class ArticleTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Article = ClassRegistry::init('Article');
+		$this->Post = ClassRegistry::init('Post');
 	}
 
 	public function test_create() {
 
-		$article = array(
-			'Article' => array(
-				'title' => 'Article number 4',
+		$post = array(
+			'Post' => array(
+				'title' => 'Post number 4',
 				'slug' => 'Lorem ipsum dolor sit amet',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'body' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
@@ -50,12 +50,12 @@ class ArticleTest extends CakeTestCase {
 			)
 		);
 
-		$this->assertNotNull($this->Article->save($article));
+		$this->assertNotNull($this->Post->save($post));
 	}
 
 	public function test_edit() {
-		$article = array(
-			'Article' => array(
+		$post = array(
+			'Post' => array(
 				'id' => '1',
 				'title' => 'modified title',
 				'slug' => 'Lorem ipsum dolor sit amet',
@@ -75,23 +75,23 @@ class ArticleTest extends CakeTestCase {
 			)
 		);
 
-		$modified_article = $this->Article->save($article);
-		$this->assertNotNull($modified_article);
+		$modified_post = $this->Post->save($post);
+		$this->assertNotNull($modified_post);
 
-		unset($modified_article['Article']['published_time']);
+		unset($modified_post['Post']['published_time']);
 
-		$this->Article->recursive = -1;
-		$expected_article = $this->Article->findById(1);
+		$this->Post->recursive = -1;
+		$expected_post = $this->Post->findById(1);
 
-		unset($expected_article['Article']['published_time']);
+		unset($expected_post['Post']['published_time']);
 
-		$this->assertEquals($modified_article, $expected_article);
+		$this->assertEquals($modified_post, $expected_post);
 	}
 
 	public function test_find() {
-		$article = array(
-			'Article' => array(
-				'title' => 'Article number 4',
+		$post = array(
+			'Post' => array(
+				'title' => 'Post number 4',
 				'slug' => 'Lorem ipsum dolor sit amet',
 				'blurb' => 'Lorem ipsum dolor sit amet',
 				'body' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
@@ -109,12 +109,12 @@ class ArticleTest extends CakeTestCase {
 			)
 		);
 
-		$new_article = $this->Article->save($article);
-		$this->assertNotNull($new_article);
+		$new_post = $this->Post->save($post);
+		$this->assertNotNull($new_post);
 
-		$articles = $this->Article->find('all');
+		$posts = $this->Post->find('all');
 
-		$this->assertEquals(4, count($articles));
+		$this->assertEquals(4, count($posts));
 	}
 
 /**
@@ -123,7 +123,7 @@ class ArticleTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Article);
+		unset($this->Post);
 
 		parent::tearDown();
 	}

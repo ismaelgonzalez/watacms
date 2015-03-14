@@ -1,9 +1,9 @@
 <?php
 /**
- * ArticleFixture
+ * PostFixture
  *
  */
-class ArticleFixture extends CakeTestFixture {
+class PostFixture extends CakeTestFixture {
 	public $useDbConfig = 'test';
 
 /**

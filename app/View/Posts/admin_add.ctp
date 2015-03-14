@@ -1,8 +1,8 @@
 <?php
 $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'theme_advanced_toolbar_location' => 'top', 'theme_advanced_buttons3' => ''));
 ?>
-<div class="articles form">
-	<?php echo $this->Form->create('Article',
+<div class="posts form">
+	<?php echo $this->Form->create('Post',
 		array(
 			'type' => 'file',
 			'class' => 'form-horizontal',
@@ -92,10 +92,10 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 		<div class="form-group">
 			<label class="control-label my-label col-lg-2" style="padding-top: 0">Mostrar como Publicado</label>
 			<div class="col-lg-4">
-				<label for="ArticleIsPublished1">Si</label>
-				<input type="radio" name="data[Article][is_published]" id="ArticleIsPublished1" value="1" checked="checked">
-				<label for="ArticleIsPublished0">No</label>
-				<input type="radio" name="data[Article][is_published]" id="ArticleIsPublished0" value="0">
+				<label for="PostIsPublished1">Si</label>
+				<input type="radio" name="data[Post][is_published]" id="PostIsPublished1" value="1" checked="checked">
+				<label for="PostIsPublished0">No</label>
+				<input type="radio" name="data[Post][is_published]" id="PostIsPublished0" value="0">
 			</div>
 		</div>
 	</fieldset>
@@ -108,7 +108,7 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 </div>
 <script type="text/javascript">
 	$(function () {
-		$('#ArticlePublishedDate').datepicker({dateFormat:'dd-mm-yy'});
+		$('#PostPublishedDate').datepicker({dateFormat:'dd-mm-yy'});
 		$("[id*='Tags']").autocomplete({source: '/tags/autocomplete/', minlength:2, select: function (event, ui){
 			if (ui.item != null) {
 				var label = "<span id='tag"+ui.item.id+"' class='badge tag'>"+ui.item.value+"<a onclick='deltag("+ui.item.id+")'>x</a></span>";

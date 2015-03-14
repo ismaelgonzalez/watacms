@@ -151,8 +151,8 @@ CREATE TABLE `videos` (
 
 #ALTER TABLE video ADD COLUMN video_number VARCHAR(100);
 
-##articles
-CREATE TABLE `articles` (
+##changed to posts
+CREATE TABLE `posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `slug` varchar(128) DEFAULT NULL,

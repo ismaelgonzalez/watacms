@@ -5,7 +5,7 @@ App::uses('AppModel', 'Model');
  *
  * @property Section $Section
  */
-class Article extends AppModel {
+class Post extends AppModel {
 
 /**
  * Display field
@@ -95,7 +95,7 @@ class Article extends AppModel {
 		}
 
 		if(!empty($this->data[$this->alias]['pic']['name'])){
-			$pic_name = $this->uploadPic('articles', true);
+			$pic_name = $this->uploadPic('posts', true);
 			$this->data[$this->alias]['pic'] = $pic_name;
 		}
 

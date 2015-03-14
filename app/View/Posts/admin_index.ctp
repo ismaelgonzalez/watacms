@@ -1,11 +1,11 @@
-<h3><a href="/admin/articles/add/">Agregar Notas</a></h3>
+<h3><a href="/admin/posts/add/">Agregar Notas</a></h3>
 <?php
-if (sizeof($articles) < 1) {
+if (sizeof($posts) < 1) {
 	echo "<h4>Por el momento no tenemos Imagenes en el sistema.</h4>";
 } else {
 	?>
-	<div class="articles index table-responsive">
-		<h2><?php echo __('Articles'); ?></h2>
+	<div class="posts index table-responsive">
+		<h2><?php echo __('Posts'); ?></h2>
 		<table class="table table-striped table-hover">
 			<thead>
 			<tr>
@@ -20,18 +20,18 @@ if (sizeof($articles) < 1) {
 			</tr>
 			</thead>
 			<tbody>
-			<?php foreach ($articles as $article): ?>
+			<?php foreach ($posts as $post): ?>
 				<tr>
-					<td><?php echo h($article['Article']['id']); ?>&nbsp;</td>
-					<td><?php echo h($article['Article']['title']); ?>&nbsp;</td>
-					<td><?php echo h($article['Section']['name']); ?>&nbsp;</td>
-					<td><?php echo $this->Status->getSiNo($article['Article']['is_published']); ?>&nbsp;</td>
-					<td><?php echo date('d/M/Y', strtotime($article['Article']['published_date'])); ?>&nbsp;</td>
-					<td><?php echo date('h:i A', strtotime($article['Article']['published_time'])); ?>&nbsp;</td>
-					<td><?php echo $this->Status->getStatus($article['Article']['status']); ?>&nbsp;</td>
+					<td><?php echo h($post['Post']['id']); ?>&nbsp;</td>
+					<td><?php echo h($post['Post']['title']); ?>&nbsp;</td>
+					<td><?php echo h($post['Section']['name']); ?>&nbsp;</td>
+					<td><?php echo $this->Status->getSiNo($post['Post']['is_published']); ?>&nbsp;</td>
+					<td><?php echo date('d/M/Y', strtotime($post['Post']['published_date'])); ?>&nbsp;</td>
+					<td><?php echo date('h:i A', strtotime($post['Post']['published_time'])); ?>&nbsp;</td>
+					<td><?php echo $this->Status->getStatus($post['Post']['status']); ?>&nbsp;</td>
 					<td class="actions">
-						<a href="/admin/articles/edit/<?php echo $article['Article']['id']; ?>"><i class="fa fa-fw fa-edit" data-toggle="tooltip" title="Editar Imagen"></i></a> |
-						<i class="fa fa-fw fa-times-circle text-danger" onclick="borrar(<?php echo $article['Article']['id']; ?>)" data-toggle="tooltip" title="Desactivar Imagen"></i>
+						<a href="/admin/posts/edit/<?php echo $post['Post']['id']; ?>"><i class="fa fa-fw fa-edit" data-toggle="tooltip" title="Editar Imagen"></i></a> |
+						<i class="fa fa-fw fa-times-circle text-danger" onclick="borrar(<?php echo $post['Post']['id']; ?>)" data-toggle="tooltip" title="Desactivar Imagen"></i>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -48,7 +48,7 @@ if (sizeof($articles) < 1) {
 			?>	</p>
 	</div>
 <?php } ?>
-<div id="deleteArticle" class="modal fade">
+<div id="deletePost" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -72,13 +72,13 @@ if (sizeof($articles) < 1) {
 
 		$("#confirmDelete").click(function() {
 			var id = $("#deleteID").val();
-			$("#deleteArticle").modal('hide');
-			window.open('/admin/articles/delete/'+id, '_parent');
+			$("#deletePost").modal('hide');
+			window.open('/admin/posts/delete/'+id, '_parent');
 		});
 	});
 
 	function borrar(post_id) {
 		$("#deleteID").val(post_id);
-		$("#deleteArticle").modal('show');
+		$("#deletePost").modal('show');
 	}
 </script>

@@ -1,11 +1,11 @@
 <?php
-App::uses('ArticlesController', 'Controller');
+App::uses('PostsController', 'Controller');
 
 /**
- * ArticlesController Test Case
+ * PostsController Test Case
  *
  */
-class ArticlesControllerTest extends ControllerTestCase {
+class PostsControllerTest extends ControllerTestCase {
 
 /**
  * Fixtures
@@ -13,7 +13,7 @@ class ArticlesControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.article',
+		'app.post',
 		'app.section'
 	);
 
