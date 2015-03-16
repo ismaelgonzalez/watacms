@@ -15,6 +15,7 @@ if (sizeof($posts) < 1) {
 				<th><?php echo $this->Paginator->sort('is_published', 'Mostrar como Publicado'); ?></th>
 				<th><?php echo $this->Paginator->sort('published_date', 'Fecha de Publicación'); ?></th>
 				<th><?php echo $this->Paginator->sort('published_time', 'Hora de Publicación'); ?></th>
+				<th><?php echo $this->Paginator->sort('num_views', 'Numero de Vistas'); ?></th>
 				<th><?php echo $this->Paginator->sort('status'); ?></th>
 				<th class="actions"><?php echo __('Actions'); ?></th>
 			</tr>
@@ -28,6 +29,7 @@ if (sizeof($posts) < 1) {
 					<td><?php echo $this->Status->getSiNo($post['Post']['is_published']); ?>&nbsp;</td>
 					<td><?php echo date('d/M/Y', strtotime($post['Post']['published_date'])); ?>&nbsp;</td>
 					<td><?php echo date('h:i A', strtotime($post['Post']['published_time'])); ?>&nbsp;</td>
+					<td><?php echo h($post['Post']['num_views']); ?>&nbsp;</td>
 					<td><?php echo $this->Status->getStatus($post['Post']['status']); ?>&nbsp;</td>
 					<td class="actions">
 						<a href="/admin/posts/edit/<?php echo $post['Post']['id']; ?>"><i class="fa fa-fw fa-edit" data-toggle="tooltip" title="Editar Imagen"></i></a> |
