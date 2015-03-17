@@ -103,7 +103,6 @@ class Post extends AppModel {
 
 		//check is_main/was_main
 		//slug title
-
 		return true;
 	}
 }

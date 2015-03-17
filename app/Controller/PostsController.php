@@ -73,23 +73,38 @@ class PostsController extends AppController
 		$this->set('pageHeader', 'Notas');
 		$this->set('sectionTitle', 'Editar Nota');
 
-		if (!$this->Post->exists($id)) {
-			throw new NotFoundException(__('Invalid post'));
+		$this->Post->recursive = -1;
+		$post = $this->Post->findById($id);
+		if (empty($post)) {
+			$this->Session->setFlash('No existe Post con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/admin/posts/index');
 		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Post->save($this->request->data)) {
-				$this->Session->setFlash(__('The post has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The post could not be saved. Please, try again.'));
-			}
-		} else {
-			$options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
-			$this->request->data = $this->Post->find('first', $options);
-		}
+
 		$conditions = array('Section.status' => 1);
 		$sections = $this->Section->generateTreeList($conditions, null, null, ' - ', -1);
-		$this->set(compact('sections'));
+		$this->set('sections', $sections);
+		$this->set('post', $post);
+
+		$tags = $this->Tagged->find('all', array(
+			'conditions' => array(
+				'model' => 'video',
+				'model_id' => $id
+			),
+		));
+		$this->set('tags', $tags);
+
+		if (!empty($this->request->data)) {
+			if (!$this->Post->save($this->request->data)) {
+				$this->Session->setFlash('No se pudo guardar el Post :S', 'default', array('class'=>'alert alert-danger'));
+
+				return false;
+			}
+
+			$this->Session->setFlash('Se editó el Post!', 'default', array('class'=>'alert alert-success'));
+
+			return $this->redirect('/admin/posts/index');
+		}
 	}
 
 	/**
@@ -101,17 +116,29 @@ class PostsController extends AppController
 	 */
 	public function admin_delete($id = null) {
 		$this->autoRender = false;
-		$this->Post->id = $id;
-		if (!$this->Post->exists()) {
-			throw new NotFoundException(__('Invalid post'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		$this->request->data['Post']['status'] = 0;
-		if ($this->Post->save($this->request->data)) {
-			$this->Session->setFlash(__('The post has been deleted.'));
+
+		$post = $this->Post->find('first', array(
+			'conditions' => array(
+				'Post.id' => $id
+			)
+		));
+
+		if ($post) {
+			$post['Post']['status'] = 0;
+			if ($this->Post->save($post) ) {
+				$this->Session->setFlash('Se desactiv&oacute; al Post con exito!', 'default', array('class'=>'alert alert-success'));
+
+				return $this->redirect('/admin/posts/index');
+			} else {
+				$this->Session->setFlash('No se borro el Post :(', 'default', array('class'=>'alert alert-danger'));
+
+				return $this->redirect('/admin/posts/index');
+			}
+
 		} else {
-			$this->Session->setFlash(__('The post could not be deleted. Please, try again.'));
+			$this->Session->setFlash('No existe Post con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/admin/posts/index');
 		}
-		return $this->redirect(array('action' => 'index'));
 	}
 }

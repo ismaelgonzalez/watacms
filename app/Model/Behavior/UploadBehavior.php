@@ -14,6 +14,11 @@ class UploadBehavior extends ModelBehavior {
 
 		if ($pics['pic']['name'] != '' && $pics['pic']['error'] == 0) {     //make sure there is a file to upload and there is no error
 			$new_file = pathinfo($pics['pic']['name']);
+
+			if (empty($new_file['extension'])) {
+				return false;
+			}
+
 			$new_name = $new_file['filename'] . '_' . date('dmHis') . '.' . $new_file['extension'];
 			$filename = str_replace(' ', '_', $new_name);
 
