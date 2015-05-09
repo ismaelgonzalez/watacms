@@ -104,4 +104,15 @@ class AlbumsControllerTest extends ControllerTestCase {
 		$this->assertCount(1, $result['album']['Photo']);
 	}
 
+	public function testAutocomplete() {
+		$term = array('term' => 'alb');
+		$result = $this->_testAction('/albums/autocomplete/', array('method' => 'get', 'data' => $term));
+		$tags = json_decode($result);
+
+		$this->assertCount(3, $tags);
+		$this->assertObjectHasAttribute('value', $tags[0]);
+		$this->assertObjectHasAttribute('label', $tags[0]);
+		$this->assertObjectHasAttribute('id', $tags[0]);
+	}
+
 }

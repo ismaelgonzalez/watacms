@@ -126,4 +126,30 @@ class PicsController extends AppController {
 			return $this->redirect('/admin/pics/index');
 		}
 	}
+
+	public function autocomplete() {
+		$this->autoRender = false;
+		$this->layout = "ajax";
+		$term = $_GET['term'];
+		$pics = $this->Pic->find('all', array(
+			'recursive' => -1,
+			'conditions' => array('Pic.title LIKE' => $term.'%')
+		));
+
+		$term_return = array();
+
+		foreach($pics as $t){
+			$term_return[] = array(
+				'value' => $t['Pic']['title'],
+				'label' => $t['Pic']['title'],
+				'id' => $t['Pic']['id']
+			);
+		}
+
+		if ($this->request->is('ajax') ) {
+			echo json_encode($term_return);
+		} else {
+			return json_encode($term_return);
+		}
+	}
 }

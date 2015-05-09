@@ -15,7 +15,8 @@ class PicsControllerTest extends ControllerTestCase {
 	public $fixtures = array(
 		'app.pic',
 		'app.section',
-		'app.tagged'
+		'app.tagged',
+		'app.tag'
 	);
 
 	public function setUp()
@@ -116,4 +117,14 @@ class PicsControllerTest extends ControllerTestCase {
 		$this->assertCount(2, $result['pics']);
 	}
 
+	public function testAutocomplete() {
+		$term = array('term' => 'tit');
+		$result = $this->_testAction('/pics/autocomplete/', array('method' => 'get', 'data' => $term));
+		$tags = json_decode($result);
+
+		$this->assertCount(3, $tags);
+		$this->assertObjectHasAttribute('value', $tags[0]);
+		$this->assertObjectHasAttribute('label', $tags[0]);
+		$this->assertObjectHasAttribute('id', $tags[0]);
+	}
 }

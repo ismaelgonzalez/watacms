@@ -111,4 +111,30 @@ class VideosController extends AppController {
 			return $this->redirect('/admin/videos/index');
 		}
 	}
+
+	public function autocomplete() {
+		$this->autoRender = false;
+		$this->layout = "ajax";
+		$term = $_GET['term'];
+		$video = $this->Video->find('all', array(
+			'recursive' => -1,
+			'conditions' => array('Video.title LIKE' => $term.'%')
+		));
+
+		$term_return = array();
+
+		foreach($video as $t){
+			$term_return[] = array(
+				'value' => $t['Video']['title'],
+				'label' => $t['Video']['title'],
+				'id' => $t['Video']['id']
+			);
+		}
+
+		if ($this->request->is('ajax') ) {
+			echo json_encode($term_return);
+		} else {
+			return json_encode($term_return);
+		}
+	}
 }

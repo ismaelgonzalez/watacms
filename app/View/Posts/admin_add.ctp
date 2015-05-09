@@ -53,9 +53,23 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 			'between' => '<div class="col-lg-4">',
 		));
 
-		echo '<h3>show add pic</h3>';
-		echo '<h3>show add gallery</h3>';
-		echo '<h3>show add video</h3>';
+		echo $this->Form->input('text_pic', array(
+			'class' => 'tagsinput',
+			'label' => array('text' => 'Agregar Imagen al Contenido', 'class' => 'control-label my-label col-lg-2'),
+			'between' => '<div class="col-lg-8">',
+		));
+
+		echo $this->Form->input('text_album', array(
+			'class' => 'tagsinput',
+			'label' => array('text' => 'Agregar una Galería al Contenido', 'class' => 'control-label my-label col-lg-2'),
+			'between' => '<div class="col-lg-8">',
+		));
+
+		echo $this->Form->input('text_video', array(
+			'class' => 'tagsinput',
+			'label' => array('text' => 'Agregar un Video al Contenido', 'class' => 'control-label my-label col-lg-2'),
+			'between' => '<div class="col-lg-8">',
+		));
 
 		echo $this->Form->input('published_date', array(
 			'label' => array('text' => 'Fecha de Publicación', 'class' => 'control-label my-label col-lg-2'),
@@ -98,6 +112,24 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 				<input type="radio" name="data[Post][is_published]" id="PostIsPublished0" value="0">
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="control-label my-label col-lg-2" style="padding-top: 0">Mostrar como Principal</label>
+			<div class="col-lg-4">
+				<label for="PostIsMain1">Si</label>
+				<input type="radio" name="data[Post][is_main]" id="PostIsMain1" value="1">
+				<label for="PostIsMain0">No</label>
+				<input type="radio" name="data[Post][is_main]" id="PostIsMain0" value="0" checked="checked">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label my-label col-lg-2" style="padding-top: 0">Mostrar como Top</label>
+			<div class="col-lg-4">
+				<label for="PostIsTop1">Si</label>
+				<input type="radio" name="data[Post][is_top]" id="PostIsTop1" value="1">
+				<label for="PostIsTop0">No</label>
+				<input type="radio" name="data[Post][is_top]" id="PostIsTop0" value="0" checked="checked">
+			</div>
+		</div>
 	</fieldset>
 	<?php
 	echo "<div class='form-group col-lg-5'>";
@@ -108,6 +140,10 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 </div>
 <script type="text/javascript">
 	$(function () {
+		var $text_pic   = $('#PostTextPic'),
+			$text_album = $('#PostTextAlbum'),
+			$text_video = $('#PostTextVideo');
+
 		$('#PostPublishedDate').datepicker({dateFormat:'dd-mm-yy'});
 		$("[id*='Tags']").autocomplete({source: '/tags/autocomplete/', minlength:2, select: function (event, ui){
 			if (ui.item != null) {
@@ -133,6 +169,39 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 				return false;
 			}
 		});
+
+		//add pics to text
+		$text_pic.autocomplete({source: '/pics/autocomplete', minlength:2, select: function (event, ui){
+			if (ui.item != null) {
+				var new_pic = "[pic id=" + ui.item.id + "]";
+				tinymce.activeEditor.execCommand('mceInsertContent', false, new_pic);
+				$(this).val("");
+
+				return false;
+			}
+		}});
+
+		//add gallery to text
+		$text_album.autocomplete({source: '/albums/autocomplete', minlength:2, select: function (event, ui){
+			if (ui.item != null) {
+				var new_album = "[album id=" + ui.item.id + "]";
+				tinymce.activeEditor.execCommand('mceInsertContent', false, new_album);
+				$(this).val("");
+
+				return false;
+			}
+		}});
+
+		//add video to text
+		$text_video.autocomplete({source: '/videos/autocomplete', minlength:2, select: function (event, ui){
+			if (ui.item != null) {
+				var new_video = "[video id=" + ui.item.id + "]";
+				tinymce.activeEditor.execCommand('mceInsertContent', false, new_video);
+				$(this).val("");
+
+				return false;
+			}
+		}});
 	});
 
 	function deltag(tag_id){
