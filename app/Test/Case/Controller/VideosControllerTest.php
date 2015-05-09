@@ -100,4 +100,15 @@ class VideosControllerTest extends ControllerTestCase {
 		$this->assertCount(2, $result['videos']);
 	}
 
+	public function testAutocomplete() {
+		$term = array('term' => 'lin');
+		$result = $this->_testAction('/videos/autocomplete/', array('method' => 'get', 'data' => $term));
+		$tags = json_decode($result);
+
+		$this->assertCount(3, $tags);
+		$this->assertObjectHasAttribute('value', $tags[0]);
+		$this->assertObjectHasAttribute('label', $tags[0]);
+		$this->assertObjectHasAttribute('id', $tags[0]);
+	}
+
 }

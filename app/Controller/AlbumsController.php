@@ -122,4 +122,29 @@ class AlbumsController extends AppController {
 		$this->set('album', $album);
 	}
 
+	public function autocomplete() {
+		$this->autoRender = false;
+		$this->layout = "ajax";
+		$term = $_GET['term'];
+		$album = $this->Album->find('all', array(
+			'recursive' => -1,
+			'conditions' => array('Album.title LIKE' => $term.'%')
+		));
+
+		$term_return = array();
+
+		foreach($album as $t){
+			$term_return[] = array(
+				'value' => $t['Album']['title'],
+				'label' => $t['Album']['title'],
+				'id' => $t['Album']['id']
+			);
+		}
+
+		if ($this->request->is('ajax') ) {
+			echo json_encode($term_return);
+		} else {
+			return json_encode($term_return);
+		}
+	}
 }
