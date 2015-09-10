@@ -88,7 +88,7 @@ class PostsController extends AppController
 
 		$tags = $this->Tagged->find('all', array(
 			'conditions' => array(
-				'model' => 'video',
+				'model' => 'post',
 				'model_id' => $id
 			),
 		));

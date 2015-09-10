@@ -21,24 +21,29 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 	<fieldset>
 		<legend><?php echo __('Admin Agregar Nota'); ?></legend>
 		<?php
-		echo $this->Form->input('id', array());
+		echo $this->Form->input('id', array(
+			'default' => $post['Post']['id']
+		));
 		echo $this->Form->input('title', array(
 			'label' => array('text' => 'Título', 'class' => 'control-label my-label col-lg-2'),
 			'class' => 'form-control',
 			'between' => '<div class="col-lg-4">',
+			'default' => $post['Post']['title']
 		));
 		echo $this->Form->input('blurb', array(
 			'label' => array('text' => 'Descripción', 'class' => 'control-label my-label col-lg-2'),
 			'type' => 'text',
 			'class' => 'form-control',
 			'between' => '<div class="col-lg-4">',
+			'default' => $post['Post']['blurb']
 		));
 		echo $this->Form->input('body', array(
 			'label' => array('text' => 'Texto', 'class' => 'control-label my-label col-lg-2'),
 			'type' => 'text',
 			'class' => 'form-control',
 			'between' => '<div class="col-lg-4">',
-			'rows' => 20
+			'rows' => 20,
+			'default' => $post['Post']['body']
 		));
 		echo '<h3>show/edit pic</h3>';
 		/*echo $this->Form->input('pic', array(
@@ -53,6 +58,7 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 			'type' => 'text',
 			'class' => 'form-control',
 			'between' => '<div class="col-lg-4">',
+			'default' => $post['Post']['pic_blurb']
 		));
 
 		echo '<h3>show add pic</h3>';
@@ -63,8 +69,17 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 			'label' => array('text' => 'Fecha de Publicación', 'class' => 'control-label my-label col-lg-2'),
 			'type' => 'text',
 			'between' => '<div class="col-lg-2">',
+			'default' => $post['Post']['published_date']
 		));
 		$time = $this->Timeoptions->getTimeOptions();
+
+		$minute = date('i', strtotime($post['Post']['published_time']));
+		if ($minute != '00') {
+			$default_time = 0;
+			echo $this->Form->hidden('time_is_set', array('default' => 1));
+		} else {
+			$default_time = date('H', strtotime($post['Post']['published_time']));
+		}
 
 		echo $this->Form->input('published_time', array(
 			'label' => array('text' => 'Hora de Publicación', 'class' => 'control-label my-label col-lg-2'),
@@ -74,6 +89,7 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 				$time,
 			),
 			'empty' => array(0 => '-- Publicar Ahora --'),
+			'default' => $default_time,
 		));
 		echo $this->Form->input('section_id', array(
 			'label' => array('text' => 'Sección', 'class' => 'control-label my-label col-lg-2'),
@@ -83,22 +99,28 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 				$sections,
 			),
 			'empty' => array('' => '-- Seleccionar Sección --'),
+			'default' => $post['Post']['section_id']
 		));
 		echo $this->Form->input('tags', array(
 			'class' => 'tagsinput',
 			'label' => array('text' => 'Agregar Tags', 'class' => 'control-label my-label col-lg-2'),
 			'between' => '<div class="col-lg-8">',
+			'type' => 'text',
 		));
-		echo $this->Form->input('tagged', array('type' => 'hidden'));
-		echo '<h3>fix tagged</h3>';
+
+		$tag_labels = $this->Tags->getTags($tags);
+		echo "<div class='form-group'><span class='col-lg-2' style='text-align: right'><strong>Tags actuales:</strong></span><div class='col-lg-8'>".$tag_labels."</div></div>";
+		$tagged = $this->Tags->getTagsIds($tags);
+		echo $this->Form->input('tagged', array('type' => 'hidden', 'default' => $tagged));
+
 		?>
 		<div class="form-group">
 			<label class="control-label my-label col-lg-2" style="padding-top: 0">Mostrar como Publicado</label>
 			<div class="col-lg-4">
 				<label for="PostIsPublished1">Si</label>
-				<input type="radio" name="data[Post][is_published]" id="PostIsPublished1" value="1" checked="checked">
+				<input type="radio" name="data[Post][is_published]" id="PostIsPublished1" value="1" <?php if( $post['Post']['is_published'] == 1 ) { echo 'checked="checked"'; }?>>
 				<label for="PostIsPublished0">No</label>
-				<input type="radio" name="data[Post][is_published]" id="PostIsPublished0" value="0">
+				<input type="radio" name="data[Post][is_published]" id="PostIsPublished0" value="0" <?php if( $post['Post']['is_published'] == 0 ) { echo 'checked="checked"'; }?>>
 			</div>
 		</div>
 	</fieldset>
