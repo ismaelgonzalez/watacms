@@ -33,4 +33,16 @@ class ThumbsHelper extends AppHelper {
 
 		echo $div;
 	}
+
+	public function post_thumbnail($post, $thumb_size){
+		if ( !empty( $post['Post']['pic'] ) ) {
+			$div = "<div class='pull-right'>
+			<a class='thumbnail' href='/admin/posts/edit/".$post['Post']['id']."'>
+				<img src='/files/posts/".$post['Post']['pic']."' alt='".$post['Post']['title']."' width='".$thumb_size."'>
+			</a>
+			</div>";
+
+			echo $div;
+		}
+	}
 }

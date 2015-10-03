@@ -94,6 +94,10 @@ class PostsController extends AppController
 		));
 		$this->set('tags', $tags);
 
+		if (empty($this->data['Post']['pic']['name'])) {
+			unset($this->request->data['Post']['pic']);
+		}
+
 		if (!empty($this->request->data)) {
 			if (!$this->Post->save($this->request->data)) {
 				$this->Session->setFlash('No se pudo guardar el Post :S', 'default', array('class'=>'alert alert-danger'));

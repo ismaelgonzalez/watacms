@@ -45,14 +45,24 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 			'rows' => 20,
 			'default' => $post['Post']['body']
 		));
-		echo '<h3>show/edit pic</h3>';
-		/*echo $this->Form->input('pic', array(
+		?>
+		<div class="form-group">
+			<div class="col-lg-6" style="text-align: right">
+				<p>
+				Imagen actual: <?php echo $post['Post']['pic']; ?>
+				<?php $this->Thumbs->post_thumbnail($post, 300); ?>
+				</p>
+				<p></p>
+			</div>
+		</div>
+		<?php
+		echo $this->Form->input('pic', array(
 			'label' => array('text' => 'Imagen', 'class' => 'control-label my-label col-lg-2'),
 			'type'  => 'file',
 			'class' => 'form-control',
 			'between' => '<div class="col-lg-4">',
 			'before' => '<div class="form-group pic-image">',
-		));*/
+		));
 		echo $this->Form->input('pic_blurb', array(
 			'label' => array('text' => 'Pie de Imagen', 'class' => 'control-label my-label col-lg-2'),
 			'type' => 'text',
@@ -61,9 +71,23 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 			'default' => $post['Post']['pic_blurb']
 		));
 
-		echo '<h3>show add pic</h3>';
-		echo '<h3>show add gallery</h3>';
-		echo '<h3>show add video</h3>';
+		echo $this->Form->input('text_pic', array(
+			'class' => 'tagsinput',
+			'label' => array('text' => 'Agregar Imagen al Contenido', 'class' => 'control-label my-label col-lg-2'),
+			'between' => '<div class="col-lg-8">',
+		));
+
+		echo $this->Form->input('text_album', array(
+			'class' => 'tagsinput',
+			'label' => array('text' => 'Agregar una Galería al Contenido', 'class' => 'control-label my-label col-lg-2'),
+			'between' => '<div class="col-lg-8">',
+		));
+
+		echo $this->Form->input('text_video', array(
+			'class' => 'tagsinput',
+			'label' => array('text' => 'Agregar un Video al Contenido', 'class' => 'control-label my-label col-lg-2'),
+			'between' => '<div class="col-lg-8">',
+		));
 
 		echo $this->Form->input('published_date', array(
 			'label' => array('text' => 'Fecha de Publicación', 'class' => 'control-label my-label col-lg-2'),
@@ -133,6 +157,10 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 </div>
 <script type="text/javascript">
 	$(function () {
+		var $text_pic   = $('#PostTextPic'),
+			$text_album = $('#PostTextAlbum'),
+			$text_video = $('#PostTextVideo');
+
 		$('#PostPublishedDate').datepicker({dateFormat:'dd-mm-yy'});
 		$("[id*='Tags']").autocomplete({source: '/tags/autocomplete/', minlength:2, select: function (event, ui){
 			if (ui.item != null) {
@@ -158,6 +186,39 @@ $this->TinyMCE->editor(array('theme' => 'advanced', 'mode' => 'textareas', 'them
 				return false;
 			}
 		});
+
+		//add pics to text
+		$text_pic.autocomplete({source: '/pics/autocomplete', minlength:2, select: function (event, ui){
+			if (ui.item != null) {
+				var new_pic = "[pic id=" + ui.item.id + "]";
+				tinymce.activeEditor.execCommand('mceInsertContent', false, new_pic);
+				$(this).val("");
+
+				return false;
+			}
+		}});
+
+		//add gallery to text
+		$text_album.autocomplete({source: '/albums/autocomplete', minlength:2, select: function (event, ui){
+			if (ui.item != null) {
+				var new_album = "[album id=" + ui.item.id + "]";
+				tinymce.activeEditor.execCommand('mceInsertContent', false, new_album);
+				$(this).val("");
+
+				return false;
+			}
+		}});
+
+		//add video to text
+		$text_video.autocomplete({source: '/videos/autocomplete', minlength:2, select: function (event, ui){
+			if (ui.item != null) {
+				var new_video = "[video id=" + ui.item.id + "]";
+				tinymce.activeEditor.execCommand('mceInsertContent', false, new_video);
+				$(this).val("");
+
+				return false;
+			}
+		}});
 	});
 
 	function deltag(tag_id){

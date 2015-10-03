@@ -97,8 +97,6 @@ class Post extends AppModel {
 		if(!empty($this->data[$this->alias]['pic']['name'])){
 			$pic_name = $this->uploadPic('posts', true);
 			$this->data[$this->alias]['pic'] = $pic_name;
-		} else {
-			$this->data[$this->alias]['pic'] = '';
 		}
 
 		//check is_main/was_main
